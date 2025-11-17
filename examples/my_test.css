@@ -1,0 +1,93 @@
+body {
+    font-family: helvetica;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Font-specific sections */
+.helvetica-section {
+    font-family: helvetica;
+    margin: 20px 0;
+}
+
+.times-section {
+    font-family: times;
+    margin: 20px 0;
+}
+
+.courier-section {
+    font-family: courier;
+    margin: 20px 0;
+}
+
+/* Font comparison table */
+.font-comparison {
+    border-collapse: collapse;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.font-comparison th {
+    background-color: #e6f2ff;
+    color: #000;
+    padding: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #0066cc;
+    font-weight: bold;
+}
+
+.font-comparison td {
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999;
+}
+
+.font-name {
+    font-weight: bold;
+    font-family: helvetica;
+}
+
+.helvetica-sample {
+    font-family: helvetica;
+}
+
+.times-sample {
+    font-family: times;
+}
+
+.courier-sample {
+    font-family: courier;
+}
+
+/* Wrapping test paragraphs */
+.helvetica-wrap {
+    font-family: helvetica;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+    padding: 10px;
+}
+
+.times-wrap {
+    font-family: times;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+    padding: 10px;
+}
+
+.courier-wrap {
+    font-family: courier;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+    padding: 10px;
+}
