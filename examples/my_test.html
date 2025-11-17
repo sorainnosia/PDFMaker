@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comprehensive PDF Features Test</title>
+<style>
+        body {
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #666;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .test-container {
+            display: inline-block;
+            margin: 15px;
+            text-align: center;
+        }
+
+        .test-label {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Test 1: All corners different (4 values) */
+        .test-1 {
+            width: 150px;
+            height: 100px;
+            background-color: #FF6B6B;
+            border-radius: 30px 10px 40px 20px;
+        }
+
+        /* Test 2: Top-left only */
+        .test-2 {
+            width: 150px;
+            height: 100px;
+            background-color: #4ECDC4;
+            border-top-left-radius: 40px;
+        }
+
+        /* Test 3: Top-right only */
+        .test-3 {
+            width: 150px;
+            height: 100px;
+            background-color: #45B7D1;
+            border-top-right-radius: 40px;
+        }
+
+        /* Test 4: Bottom-right only */
+        .test-4 {
+            width: 150px;
+            height: 100px;
+            background-color: #FFA07A;
+            border-bottom-right-radius: 40px;
+        }
+
+        /* Test 5: Bottom-left only */
+        .test-5 {
+            width: 150px;
+            height: 100px;
+            background-color: #98D8C8;
+            border-bottom-left-radius: 40px;
+        }
+
+        /* Test 6: Diagonal corners (top-left and bottom-right) */
+        .test-6 {
+            width: 150px;
+            height: 100px;
+            background-color: #F7DC6F;
+            border-top-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+        }
+
+        /* Test 7: Opposite diagonal (top-right and bottom-left) */
+        .test-7 {
+            width: 150px;
+            height: 100px;
+            background-color: #BB8FCE;
+            border-top-right-radius: 35px;
+            border-bottom-left-radius: 35px;
+        }
+
+        /* Test 8: Three corners rounded, one square */
+        .test-8 {
+            width: 150px;
+            height: 100px;
+            background-color: #85C1E2;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        /* Test 9: Shorthand with 2 values */
+        .test-9 {
+            width: 150px;
+            height: 100px;
+            background-color: #F8B739;
+            border-radius: 40px 10px;
+        }
+
+        /* Test 10: Shorthand with 3 values */
+        .test-10 {
+            width: 150px;
+            height: 100px;
+            background-color: #E74C3C;
+            border-radius: 40px 20px 10px;
+        }
+
+        /* Test 11: Very different radii */
+        .test-11 {
+            width: 150px;
+            height: 100px;
+            background-color: #27AE60;
+            border-radius: 50px 5px 25px 15px;
+        }
+
+        /* Test 12: With border */
+        .test-12 {
+            width: 150px;
+            height: 100px;
+            background-color: #3498DB;
+            border: 4px solid #2C3E50;
+            border-radius: 30px 10px 40px 20px;
+        }
+
+        /* Test 13: Small box with individual corners */
+        .test-13 {
+            width: 80px;
+            height: 80px;
+            background-color: #9B59B6;
+            border-top-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        /* Test 14: Pill with text (should stay uniform) */
+        .test-14 {
+            width: 200px;
+            height: 60px;
+            background-color: #1ABC9C;
+            border-radius: 30px;
+            padding: 15px;
+            color: white;
+        }
+
+        /* Test 15: Asymmetric rounded rectangle */
+        .test-15 {
+            width: 180px;
+            height: 120px;
+            background-color: #E67E22;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 50px;
+            border-bottom-left-radius: 10px;
+        }
+
+        /* Test 16: Card with individual corners and border */
+        .test-16 {
+            width: 200px;
+            height: 120px;
+            background-color: white;
+            border: 2px solid #34495E;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            padding: 15px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+
+    </style>
+ <style>
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #2c3e50; 
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            border: 2px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .test-box {
+            display: inline-block;
+            margin: 15px;
+            vertical-align: top;
+        }
+
+        .label {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body style="margin: 0;">
+    <!-- Header Section with Background Image and Centered Text -->
+    <div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAvUAAAECCAYAAAB+PSixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYUAAB2FAfAbMuwAAAGHaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49J++7vycgaWQ9J1c1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCc/Pg0KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyI+PHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj48cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0idXVpZDpmYWY1YmRkNS1iYTNkLTExZGEtYWQzMS1kMzNkNzUxODJmMWIiIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj48dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPjwvcmRmOkRlc2NyaXB0aW9uPjwvcmRmOlJERj48L3g6eG1wbWV0YT4NCjw/eHBhY2tldCBlbmQ9J3cnPz4slJgLAAAJy0lEQVR4Xu3cy5Lb5hWF0dNSKhPd7x4nju3EfibPYtmK804pPZyrW/eWWpIzETNCig3zArIBEhtYa8b9BN9/CsWTxWKxODk5qZWen7YXAADgmH78qr3UtfYAAABkEfUAABBufdT79AYAAMZnRaevj3oAACCCqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAAwol6AAAIJ+oBACCcqAcAgHCiHgAA0vzpz5d+inoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADS3Lh96aeoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcKIeAADCiXoAAAgn6gEAIJyoBwCAcOuj/sev2gsAADBC16qqFotFewcAAMbo3z9Unb+6NK2/1AMAABFEPQAAhNsc9b6rBwCA8Vjx6U0tR73v6gEAIM/p6emWS3251gMAwCisudJX+/Mb13oAAMhxenpaT5486XCpL9d6AAA4qg1X+mpf6su1HgAAxmVN0DdX+loV9Wu51gMAwCitjPq113phDwAAh9PhSl/ror6EPQAAHFfHoK9NUb+RsAcAgOGsCfp1Nkb92ms9AAAwjA1Bv+pKX9uivjaFvWs9AAD0a4+gry5Rv5GwBwCAfvy6X9BX16hfe60vYQ8AAFf26w9V7/cL+uoa9SXsAQBgGBuCvquTxcZa/6OTk5P2dNnz0/YCAACssiXou1zpa5dLfWPrG8DVHgAAtusp6GufqC9hDwAAV7Mh6E9PT2uxWHQO+trn85tlPsUBAIAdbIj52vE6v+xKUd8Q9wAAsMWWoD87O6vHjx+35056ifoS9gAAsNqWmK8rBn3t+039KlvfBr6zBwBgbg4Q9NXnpb6x9WJfrvYAAEzcgWK+0XvUN8Q9AACzdOCgryGjvoQ9AABzcoSYbwwa9dU17EvcAwAQqkPM14BBX4eI+oa4BwBgUv71fdWH1+31D4aM+cbBor4h7gEAiNYx5utAQV99/qVlV53fEP4CEwCAsekY9GdnZ7VYLA4S9HWMS/0yV3sAACLsEPOHCvllR436hrgHAGB0OoZ841hBX2OJ+oa4BwDg6IJivjGqqK9dwr4h8AEA6MOOMf/ixYt69OhRez6K0UV9Q9wDAHAQwTHfGG3UN8Q9AACDmEDMN0Yf9Q1xDwDAle0Y8jXymG/ERH1j57gvgQ8AMHsTjflGXNQ3xD0AABtNPOSXxUb9MoEPAMD/7RHzL1++rIcPH7bnGJOI+oa4BwCYqWffV13sFvI1gZhvTCrqG3vFfQl8AIAoz/5RdfGmvW41lZBfNsmoXybwAQAmZM+Qr4nGfGPyUd/YO+5L4AMAHJWQ32o2Ub9M4AMAjNyzv1ddvG2vncwl5JfNMuobV4r7EvgAAL26QsjXTGO+MeuoXybwAQCOQMj3QtSvIPABAAZyxYgvIb+SqN/iyoFfIh8AmDkhPzhRvwOBDwDQQQ8RX0J+J6J+TwIfAGCJkD8qUd+DXgK/RD4AEKSniH/16lU9ePCgPbMjUd+z3gK/RD4AMCLPvqu6eNde9yLk+yfqBybyAYBIPUZ8CfnBifoD6jXwS+QDAD0S8dFE/RGJfADgaH75ruqjiJ8KUT8iIh8AGEzPEV9CflRE/Uj1HvgNoQ8A0zdAwJeIHzVRH0LkAwArDRTwVVWvX7+u+/fvt2dGSNSHGizyS+gDwGgNGPBv3rype/futWdCiPqJGDTyS+gDwMH98m3Vx/P22hsRPy2ifqIGj/wS+gDQm4EDvkT85In6GRH6AHBkP39b9WnYeC8BP0uifuYOEvol9gGYmZ+/qfr0vr0ORsQj6rnkYJHfEPsApBPwjICoZ6uDh36JfQBG5uk3VZ8PF+4NAU9Xop69HCX0S+wDMLCnf6v6/KG9Du7t27d19+7d9gydiXp6dbTYL8EPQEdHCveGgGcIop6DEPsAHNSRw73EOwcm6jmao4b+MtEPkGcE0d4Q74yBqGeURhP8JfoBjmJE0d4Q74yZqCfKqGK/IfoBdjfCaK+qevfuXd25c6c9w+iJeiZhlLG/TPgDc/H066rPF+11VM7Pz+v27dvtGaKJeiZv9MG/TPwDY/XT11W/jzvWlwl35kbUM3tR0d94/ltVXWuvALv76a9Vv39sr6Mn2uEyUQ8bRAb/Kh4BMA+hgb6OcIfuRD1c0WTCfxOPAjiciYX5Ou/fv69bt261Z2BPoh4OYBbhv85/fqu65kHAjPzzL1X//dReZ0Osw3GIehiRWcf/vjwa6GrmsX1VYh3GTdRDoOvXr9eXL1/aM8BOhDpMh6iHGfAIgHkQ6TBfoh7YyqMADuPDhw918+bN9gywlagHBuVBwJxcXFzUjRs32jPA4P4HhQxCxZyff0sAAAAASUVORK5CYII='); background-size: cover; padding: 40px 20px;  ">
+        <div style="text-align: center;">
+            <h1 style="color: white;   padding: 20px;">Comprehensive PDF Features Test</h1>
+            <p style="color: white; font-size: 18px;  padding: 10px;">
+                This document demonstrates all implemented features including headings, text alignment, colors, borders, tables, images, and text wrapping.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content with Margin -->
+    <div style="margin: 30px;">
+
+        <!-- Section 1: Headings and Font Sizes -->
+        <h1>Section 1: HTML Headings with Default Sizes</h1>
+        <h2>This is an H2 heading (24px)</h2>
+        <h3>This is an H3 heading (18.72px)</h3>
+        <h4>This is an H4 heading (16px)</h4>
+        <h5>This is an H5 heading (13.28px)</h5>
+        <h6>This is an H6 heading (10.72px)</h6>
+
+        <!-- Section 2: Text Alignment -->
+        <h1 style="break-before: page;">Section 2: Text Alignment</h1>
+        <div style="border-width: 2px; border-style: solid; border-color: blue; padding: 15px; margin-bottom: 20px;">
+            <p style="text-align: left;">This paragraph is left-aligned (default).</p>
+            <p style="text-align: center;">This paragraph is center-aligned.</p>
+            <p style="text-align: right;">This paragraph is right-aligned.</p>
+        </div>
+
+        <div style="border-width: 2px; border-style: solid; color:red; border-color: blue; padding: 15px; margin-bottom: 20px;">
+            <p style="text-align: justify;">This is a very long paragraph that shows the text is inside the border and the texts wrapped across multiple lines of the box and it is displayed in justify text-align mode. This is to show that text calculation and wrapping inside border works, for edge cases like word-spacing and letter-spacing, this might work differently as because the calculation of the wrapping uses average char measurement instead of per different char.</p>
+             </div>
+
+        <!-- Section 3: Colors and Backgrounds -->
+        <h1>Section 3: Colors and Background Colors</h1>
+        <p style="color: red; background-color: yellow;  ">Red text on yellow background</p>
+        <p style="color: white; background-color: #336699; ;">White text on blue background (#336699)</p>
+        <p style="color: green; background-color: rgba(255, 200, 200, 0.8);  ">Green text with semi-transparent pink background</p>
+
+        <!-- Section 4: Borders with Different Styles -->
+        <h1 style="break-before: page; margin-top:10px;">Section 4: Border Styles</h1>
+        <div style="border-width: 3px; border-style: solid; border-color: black; padding: 10px; margin-bottom: 10px;">
+            Solid border
+        </div>
+        <div style="border-width: 3px; border-style: dashed; border-color: red; padding: 10px; margin-bottom: 10px;">
+            Dashed border
+        </div>
+        <div style="border-width: 3px; border-style: dotted; border-color: green; padding: 10px; margin-bottom: 10px;">
+            Dotted border
+        </div>
+        <div style="border-width: 4px; border-style: double; border-color: blue; padding: 10px; margin-bottom: 10px;">
+            Double border
+        </div>
+        <div style="border-top-width: 2px; border-top-style: solid; border-top-color: red; border-right-width: 4px; border-right-style: dashed; border-right-color: blue; border-bottom-width: 2px; border-bottom-style: dotted; border-bottom-color: green; border-left-width: 4px; border-left-style: double; border-left-color: orange; padding: 15px;">
+            Different borders on each side
+        </div> 
+
+        <!-- Section 5: Text Wrapping and Paragraphs -->
+        <h1>Section 5: Text Wrapping</h1>
+        <div style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px; margin-bottom: 20px;text-align:justify;">
+            <p>This is a long paragraph designed to test text wrapping functionality. The text should wrap correctly at word boundaries when it reaches the edge of its container. This ensures that the layout engine properly handles long content and maintains readability. Text wrapping is essential for creating professional-looking documents that should fit nicely within the container boundaries.</p>
+        </div>
+
+        <!-- Section 6: Images -->
+        <h1 style="break-before: page;">Section 6: Images</h1>
+        <p>Regular image with default size:</p>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAAEzUlEQVR4nO3YO2hUSxyA8f8uMYpxidpYqBElRUCwEWNlShsbBfGBtSCohYVgq52VnTa+MGIlCqIoPsBEW41FLLUJKEqK1SIPMJnLcJfA7t3dm1z2u0l2vx9TzJlz5pyQfBzXLaSQWq8I3FMyLDEMSwjDEsKwhDAsIQxLCMMSwrCE6Gp+uhB+M6+GUhQanfKNJYRhCWFYQhiWluPD++I/rKkTFBb9nznfWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCdGOYR05Em/f5vHnT2Vy9Oi/bLl0qeqwXEZ/wE5QSM1PR9X5FIVYRcrl2Ljxv1y5+I0dprDoHtrxjfVPmzbF/fvx+nWMjsbgYF45fz7GxuLjxzh4MC5fjg0b4uXLOhvL5bh9O758iTNn8h2+fo0LF/L67t3x/n2Mj1cOt2yJJ0/i3bsYHo7JyfpP7DSp6ahZaH7xihvlcmVy82bavz9P+vrSp0958vNnKpXSwEC6d6/qypqNMzN5Y19fmp9Pg4Npx4707Vtev3EjHTiQNm+uHA4Pp1On8uTw4bwl6j2xLUbNQpMrO+OfwomJ/Nb529atMTAQt25Fb29cvx6vXlVdWbNxaipKpZibi5mZWL8+5ucrp0qlOHEi+vvj7Nn8tpuYyPPZ2ejqil+/oqenzhPn5mL1W0IPrSp0JY6FF8/372ndujwpFtPQUGVxaCg9epTu3Km6smZjo8mLF+n06bRtW/r9Ox/++JHWrs2T7u40NdXwiat/1Cw0u7JVN1qJY6GGhw/TyZN5cuhQev489famkZG0Zk3q6clNROQ+isU6GxtNJifzTfr70+xsPnz8OB07lifHj6fp6TpPXPZfRYtGzUKzK1t1o5U4FmrYvj3/dUdG0ps3adeuvHLxYvrwIY2NpXPn8uGzZ+np0zobG02uXEmfP6cHDyrvqp070+hoHlev5uai3hPbYtQsNLuyVTfq6HH3btqzJ0/27ct5RbTrqFno1A/v/5u9e+PatZieju7u/EXG+Hi0qcX3YFhaAr8g1TIzLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEuIriVdXYjE/BhqN76xhDAsIQxLCMMSouCncRF8YwlhWEIYlhCGJYRhCWFYQhiWEIalIPwFrtjo2cUdX20AAAAASUVORK5CYII=" alt="Test image 1">
+
+        <p style="margin-top: 20px;">Image with custom width:</p>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAACzY+a1AAAD5klEQVR4nO3dWW4bMRBF0VbgZWh7WVW2x310EOTDkKGBQ02Pfd+njRhWHVeRZivm7TzPgyjnV/Y3QFYDoXwglA+E8oFQPhDKB0L5QCgfCOXzdeyS2+/b6D85/+xwMnXTPWCbMNtSVIzQnG0DTgHCAbb7yNdtm3CWJvyANwS2jFoWsiLhOzlztnHOapa1CF/ihcl1W9aBrEL4HC9Rrs+yAmQ+oQBebchkwid+ZfHeQiYqphGq4tWDzCH86SeH9xoyXjGacCu8GpChTyq29Tt+vpawg8DQLnx4VTvhvW7HmF6MINy5+QoMVfdBejm/I3qo+nbhVYZn6lB17MKr+x0Pr9qvF70I8QtTdCHEL1LRnhC/YEVjQvziFS0J8UtR9NnO4BdYGTPC7x8r/N7nbtyINoSRp7o75WZRNwNClsDcRdF0LcQvo1arhCyB6YviEiFLoFVWKmk0SGnBvLrNEzJCi4zTSUJGqEfmqro8SGnB9azVcIaQFvTLRG3XupAWtMpCJYcJaUHvjFZ4oQtpQdvM1nOMkBaMyVCdZ7uQFvTIVFX560/yGSDkOKbmYQ1dKJ9eQjYy8ems+XgXMkW9M1hhBql8ILwGIXvRyvtSulA+EMoHwgsQshAWXw7pQvlAKB8I5QPh7oScblfIe4XuLmQ7Gp++mjNI5QOhfCCUD4TygVA+EMoHQvlAKB8I5QOhfCCUD4TygVA+EF6HsPv+aWKWZkFY4aJTcr5VYJDKB0L5QCgfCC9A+L2WsimNTOvdUdKF8oFQPhBeg5DlsOxCSBfuEAgvSMgs9U7zIeS8Oz6dNWeQymeAkH1ptb3o/9CF8pklpBE90vwJ2dTEZKjOC4OURrTNbD2HCWlE74xWeG07QyNaZaGSM4Q0ol8marv8SwWNuJ61Gk4S0ogemavqfBdyWJN1HONzOoNiXt2WCBmnVlmp5GoXMk4TR6jDMTeKGbUyIHz4IUKxJ81yMbLpQhbFxLqZDVIWxeAl0PmRL4qBlbEkZFGMXAK9uhDFYD+XQYpipJ/XWohimJ/jO9hQjPHzfRMiioe/379bLM7zDL0m4yL3XbS4ow/3twL//O6v0I4t9OjKvQuft+PGvdiizx3jCPcfqi3n3Dj0/1TsPFRb2rl/aBfu2Y4t+aFNDuHzC93kIFuJh25phNqQrdAT02TCl/crloVs5Z545xPKQLaib1eoQvjhxtNEy/b8wxXwKhJ+vro2zLK9/EwdvLqEvZdBm3O2d5+sJqdBOHyr933k63YfLJTFkyFMuaT9rM0mTOjKeeqwbUK4Lnpqmm1LeNnw15/kA6F8IJQPhPKBUD4QygdC+UB4qOcvRLqQvlqbEdMAAAAASUVORK5CYII=" alt="Test image 2" style="width: 150px;">
+
+        <!-- Section 7: Background Images -->
+        <h1 style="break-before: page;">Section 7: Background Images</h1>
+        <div style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAAEzUlEQVR4nO3YO2hUSxyA8f8uMYpxidpYqBElRUCwEWNlShsbBfGBtSCohYVgq52VnTa+MGIlCqIoPsBEW41FLLUJKEqK1SIPMJnLcJfA7t3dm1z2u0l2vx9TzJlz5pyQfBzXLaSQWq8I3FMyLDEMSwjDEsKwhDAsIQxLCMMSwrCE6Gp+uhB+M6+GUhQanfKNJYRhCWFYQhiWluPD++I/rKkTFBb9nznfWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCdGOYR05Em/f5vHnT2Vy9Oi/bLl0qeqwXEZ/wE5QSM1PR9X5FIVYRcrl2Ljxv1y5+I0dprDoHtrxjfVPmzbF/fvx+nWMjsbgYF45fz7GxuLjxzh4MC5fjg0b4uXLOhvL5bh9O758iTNn8h2+fo0LF/L67t3x/n2Mj1cOt2yJJ0/i3bsYHo7JyfpP7DSp6ahZaH7xihvlcmVy82bavz9P+vrSp0958vNnKpXSwEC6d6/qypqNMzN5Y19fmp9Pg4Npx4707Vtev3EjHTiQNm+uHA4Pp1On8uTw4bwl6j2xLUbNQpMrO+OfwomJ/Nb529atMTAQt25Fb29cvx6vXlVdWbNxaipKpZibi5mZWL8+5ucrp0qlOHEi+vvj7Nn8tpuYyPPZ2ejqil+/oqenzhPn5mL1W0IPrSp0JY6FF8/372ndujwpFtPQUGVxaCg9epTu3Km6smZjo8mLF+n06bRtW/r9Ox/++JHWrs2T7u40NdXwiat/1Cw0u7JVN1qJY6GGhw/TyZN5cuhQev489famkZG0Zk3q6clNROQ+isU6GxtNJifzTfr70+xsPnz8OB07lifHj6fp6TpPXPZfRYtGzUKzK1t1o5U4FmrYvj3/dUdG0ps3adeuvHLxYvrwIY2NpXPn8uGzZ+np0zobG02uXEmfP6cHDyrvqp070+hoHlev5uai3hPbYtQsNLuyVTfq6HH3btqzJ0/27ct5RbTrqFno1A/v/5u9e+PatZieju7u/EXG+Hi0qcX3YFhaAr8g1TIzLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEuIriVdXYjE/BhqN76xhDAsIQxLCMMSouCncRF8YwlhWEIYlhCGJYRhCWFYQhiWEIalIPwFrtjo2cUdX20AAAAASUVORK5CYII=); background-repeat: no-repeat; padding: 80px 20px; border-width: 2px; border-style: solid; border-color: black; margin-bottom: 20px;">
+            <p style="  padding: 10px; text-align: center;">
+                Background image with no-repeat
+            </p>
+        </div>
+
+        <div style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAACzY+a1AAAD5klEQVR4nO3dWW4bMRBF0VbgZWh7WVW2x310EOTDkKGBQ02Pfd+njRhWHVeRZivm7TzPgyjnV/Y3QFYDoXwglA+E8oFQPhDKB0L5QCgfCOXzdeyS2+/b6D85/+xwMnXTPWCbMNtSVIzQnG0DTgHCAbb7yNdtm3CWJvyANwS2jFoWsiLhOzlztnHOapa1CF/ihcl1W9aBrEL4HC9Rrs+yAmQ+oQBebchkwid+ZfHeQiYqphGq4tWDzCH86SeH9xoyXjGacCu8GpChTyq29Tt+vpawg8DQLnx4VTvhvW7HmF6MINy5+QoMVfdBejm/I3qo+nbhVYZn6lB17MKr+x0Pr9qvF70I8QtTdCHEL1LRnhC/YEVjQvziFS0J8UtR9NnO4BdYGTPC7x8r/N7nbtyINoSRp7o75WZRNwNClsDcRdF0LcQvo1arhCyB6YviEiFLoFVWKmk0SGnBvLrNEzJCi4zTSUJGqEfmqro8SGnB9azVcIaQFvTLRG3XupAWtMpCJYcJaUHvjFZ4oQtpQdvM1nOMkBaMyVCdZ7uQFvTIVFX560/yGSDkOKbmYQ1dKJ9eQjYy8ems+XgXMkW9M1hhBql8ILwGIXvRyvtSulA+EMoHwgsQshAWXw7pQvlAKB8I5QPh7oScblfIe4XuLmQ7Gp++mjNI5QOhfCCUD4TygVA+EMoHQvlAKB8I5QOhfCCUD4TygVA+EF6HsPv+aWKWZkFY4aJTcr5VYJDKB0L5QCgfCC9A+L2WsimNTOvdUdKF8oFQPhBeg5DlsOxCSBfuEAgvSMgs9U7zIeS8Oz6dNWeQymeAkH1ptb3o/9CF8pklpBE90vwJ2dTEZKjOC4OURrTNbD2HCWlE74xWeG07QyNaZaGSM4Q0ol8marv8SwWNuJ61Gk4S0ogemavqfBdyWJN1HONzOoNiXt2WCBmnVlmp5GoXMk4TR6jDMTeKGbUyIHz4IUKxJ81yMbLpQhbFxLqZDVIWxeAl0PmRL4qBlbEkZFGMXAK9uhDFYD+XQYpipJ/XWohimJ/jO9hQjPHzfRMiioe/379bLM7zDL0m4yL3XbS4ow/3twL//O6v0I4t9OjKvQuft+PGvdiizx3jCPcfqi3n3Dj0/1TsPFRb2rl/aBfu2Y4t+aFNDuHzC93kIFuJh25phNqQrdAT02TCl/crloVs5Z545xPKQLaib1eoQvjhxtNEy/b8wxXwKhJ+vro2zLK9/EwdvLqEvZdBm3O2d5+sJqdBOHyr933k63YfLJTFkyFMuaT9rM0mTOjKeeqwbUK4Lnpqmm1LeNnw15/kA6F8IJQPhPKBUD4QygdC+UB4qOcvRLqQvlqbEdMAAAAASUVORK5CYII=); background-repeat: repeat-x; padding: 80px 20px; border-width: 2px; border-style: solid; border-color: black; margin-bottom: 20px; width: 500px;">
+            <p style="padding: 10px; text-align: center;">
+                Background image with repeat-x
+            </p>
+        </div>
+
+        <div style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAAEzUlEQVR4nO3YO2hUSxyA8f8uMYpxidpYqBElRUCwEWNlShsbBfGBtSCohYVgq52VnTa+MGIlCqIoPsBEW41FLLUJKEqK1SIPMJnLcJfA7t3dm1z2u0l2vx9TzJlz5pyQfBzXLaSQWq8I3FMyLDEMSwjDEsKwhDAsIQxLCMMSwrCE6Gp+uhB+M6+GUhQanfKNJYRhCWFYQhiWluPD++I/rKkTFBb9nznfWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCdGOYR05Em/f5vHnT2Vy9Oi/bLl0qeqwXEZ/wE5QSM1PR9X5FIVYRcrl2Ljxv1y5+I0dprDoHtrxjfVPmzbF/fvx+nWMjsbgYF45fz7GxuLjxzh4MC5fjg0b4uXLOhvL5bh9O758iTNn8h2+fo0LF/L67t3x/n2Mj1cOt2yJJ0/i3bsYHo7JyfpP7DSp6ahZaH7xihvlcmVy82bavz9P+vrSp0958vNnKpXSwEC6d6/qypqNMzN5Y19fmp9Pg4Npx4707Vtev3EjHTiQNm+uHA4Pp1On8uTw4bwl6j2xLUbNQpMrO+OfwomJ/Nb529atMTAQt25Fb29cvx6vXlVdWbNxaipKpZibi5mZWL8+5ucrp0qlOHEi+vvj7Nn8tpuYyPPZ2ejqil+/oqenzhPn5mL1W0IPrSp0JY6FF8/372ndujwpFtPQUGVxaCg9epTu3Km6smZjo8mLF+n06bRtW/r9Ox/++JHWrs2T7u40NdXwiat/1Cw0u7JVN1qJY6GGhw/TyZN5cuhQev489famkZG0Zk3q6clNROQ+isU6GxtNJifzTfr70+xsPnz8OB07lifHj6fp6TpPXPZfRYtGzUKzK1t1o5U4FmrYvj3/dUdG0ps3adeuvHLxYvrwIY2NpXPn8uGzZ+np0zobG02uXEmfP6cHDyrvqp070+hoHlev5uai3hPbYtQsNLuyVTfq6HH3btqzJ0/27ct5RbTrqFno1A/v/5u9e+PatZieju7u/EXG+Hi0qcX3YFhaAr8g1TIzLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEuIriVdXYjE/BhqN76xhDAsIQxLCMMSouCncRF8YwlhWEIYlhCGJYRhCWFYQhiWEIalIPwFrtjo2cUdX20AAAAASUVORK5CYII=); background-repeat: repeat; background-size: contain; padding: 100px 20px; border-width: 2px; border-style: solid; border-color: black; margin-bottom: 20px; width: 450px; height: 200px;">
+            <p style="background-color: rgba(255, 255, 255, 0.9); padding: 10px; text-align: center;">
+                Repeating background with contain size
+            </p>
+        </div>
+
+        <!-- Section 8: Tables -->
+        <h1 style="break-before: page;">Section 8: Tables with Borders and Wrapping</h1>
+        <table style="border-width: 2px; border-style: solid; border-color: black; margin-bottom: 20px;">
+            <tr>
+                <td style="width: 100px; border-width: 1px; border-style: solid; border-color: gray; padding: 15px; background-color: #f0f0f0;">
+                    <strong>Header 1</strong>
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px; background-color: #f0f0f0;">
+                    <strong>Header 2</strong>
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px; background-color: #f0f0f0;">
+                    <strong>Header 3</strong>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px;">
+                    Cell 1: Short text
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px;">
+                    Cell 2: This cell contains a longer text that will wrap to multiple lines within the table cell, demonstrating text wrapping in tables with default 50px margins.
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px;">
+                    Cell 3: Medium length text
+                </td>
+            </tr>
+            <tr>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px; background-color: #ffe0e0;">
+                    Red tinted
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px; background-color: #e0ffe0;">
+                    Green tinted
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 15px; background-color: #e0e0ff;">
+                    Blue tinted
+                </td>
+            </tr>
+        </table>
+
+        <!-- Section 9: Table with Images -->
+        <h1>Section 9: Tables with Images</h1>
+        <table style="border-width: 2px; border-style: solid; border-color: black;">
+            <tr>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 10px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAAEzUlEQVR4nO3YO2hUSxyA8f8uMYpxidpYqBElRUCwEWNlShsbBfGBtSCohYVgq52VnTa+MGIlCqIoPsBEW41FLLUJKEqK1SIPMJnLcJfA7t3dm1z2u0l2vx9TzJlz5pyQfBzXLaSQWq8I3FMyLDEMSwjDEsKwhDAsIQxLCMMSwrCE6Gp+uhB+M6+GUhQanfKNJYRhCWFYQhiWluPD++I/rKkTFBb9nznfWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCdGOYR05Em/f5vHnT2Vy9Oi/bLl0qeqwXEZ/wE5QSM1PR9X5FIVYRcrl2Ljxv1y5+I0dprDoHtrxjfVPmzbF/fvx+nWMjsbgYF45fz7GxuLjxzh4MC5fjg0b4uXLOhvL5bh9O758iTNn8h2+fo0LF/L67t3x/n2Mj1cOt2yJJ0/i3bsYHo7JyfpP7DSp6ahZaH7xihvlcmVy82bavz9P+vrSp0958vNnKpXSwEC6d6/qypqNMzN5Y19fmp9Pg4Npx4707Vtev3EjHTiQNm+uHA4Pp1On8uTw4bwl6j2xLUbNQpMrO+OfwomJ/Nb529atMTAQt25Fb29cvx6vXlVdWbNxaipKpZibi5mZWL8+5ucrp0qlOHEi+vvj7Nn8tpuYyPPZ2ejqil+/oqenzhPn5mL1W0IPrSp0JY6FF8/372ndujwpFtPQUGVxaCg9epTu3Km6smZjo8mLF+n06bRtW/r9Ox/++JHWrs2T7u40NdXwiat/1Cw0u7JVN1qJY6GGhw/TyZN5cuhQev489famkZG0Zk3q6clNROQ+isU6GxtNJifzTfr70+xsPnz8OB07lifHj6fp6TpPXPZfRYtGzUKzK1t1o5U4FmrYvj3/dUdG0ps3adeuvHLxYvrwIY2NpXPn8uGzZ+np0zobG02uXEmfP6cHDyrvqp070+hoHlev5uai3hPbYtQsNLuyVTfq6HH3btqzJ0/27ct5RbTrqFno1A/v/5u9e+PatZieju7u/EXG+Hi0qcX3YFhaAr8g1TIzLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEsIwxLCsIQwLCEMSwjDEsKwhDAsIQxLCMMSwrCEMCwhDEuIriVdXYjE/BhqN76xhDAsIQxLCMMSouCncRF8YwlhWEIYlhCGJYRhCWFYQhiWEIalIPwFrtjo2cUdX20AAAAASUVORK5CYII=); background-repeat: no-repeat;">
+                    <div style="background-color: rgba(255, 255, 255, 0.9); padding: 10px;">
+                        Cell with background image
+                    </div>
+                </td>
+                <td style="border-width: 1px; border-style: solid; border-color: gray; padding: 10px;">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAACzY+a1AAAD5klEQVR4nO3dWW4bMRBF0VbgZWh7WVW2x310EOTDkKGBQ02Pfd+njRhWHVeRZivm7TzPgyjnV/Y3QFYDoXwglA+E8oFQPhDKB0L5QCgfCOXzdeyS2+/b6D85/+xwMnXTPWCbMNtSVIzQnG0DTgHCAbb7yNdtm3CWJvyANwS2jFoWsiLhOzlztnHOapa1CF/ihcl1W9aBrEL4HC9Rrs+yAmQ+oQBebchkwid+ZfHeQiYqphGq4tWDzCH86SeH9xoyXjGacCu8GpChTyq29Tt+vpawg8DQLnx4VTvhvW7HmF6MINy5+QoMVfdBejm/I3qo+nbhVYZn6lB17MKr+x0Pr9qvF70I8QtTdCHEL1LRnhC/YEVjQvziFS0J8UtR9NnO4BdYGTPC7x8r/N7nbtyINoSRp7o75WZRNwNClsDcRdF0LcQvo1arhCyB6YviEiFLoFVWKmk0SGnBvLrNEzJCi4zTSUJGqEfmqro8SGnB9azVcIaQFvTLRG3XupAWtMpCJYcJaUHvjFZ4oQtpQdvM1nOMkBaMyVCdZ7uQFvTIVFX560/yGSDkOKbmYQ1dKJ9eQjYy8ems+XgXMkW9M1hhBql8ILwGIXvRyvtSulA+EMoHwgsQshAWXw7pQvlAKB8I5QPh7oScblfIe4XuLmQ7Gp++mjNI5QOhfCCUD4TygVA+EMoHQvlAKB8I5QOhfCCUD4TygVA+EF6HsPv+aWKWZkFY4aJTcr5VYJDKB0L5QCgfCC9A+L2WsimNTOvdUdKF8oFQPhBeg5DlsOxCSBfuEAgvSMgs9U7zIeS8Oz6dNWeQymeAkH1ptb3o/9CF8pklpBE90vwJ2dTEZKjOC4OURrTNbD2HCWlE74xWeG07QyNaZaGSM4Q0ol8marv8SwWNuJ61Gk4S0ogemavqfBdyWJN1HONzOoNiXt2WCBmnVlmp5GoXMk4TR6jDMTeKGbUyIHz4IUKxJ81yMbLpQhbFxLqZDVIWxeAl0PmRL4qBlbEkZFGMXAK9uhDFYD+XQYpipJ/XWohimJ/jO9hQjPHzfRMiioe/379bLM7zDL0m4yL3XbS4ow/3twL//O6v0I4t9OjKvQuft+PGvdiizx3jCPcfqi3n3Dj0/1TsPFRb2rl/aBfu2Y4t+aFNDuHzC93kIFuJh25phNqQrdAT02TCl/crloVs5Z545xPKQLaib1eoQvjhxtNEy/b8wxXwKhJ+vro2zLK9/EwdvLqEvZdBm3O2d5+sJqdBOHyr933k63YfLJTFkyFMuaT9rM0mTOjKeeqwbUK4Lnpqmm1LeNnw15/kA6F8IJQPhPKBUD4QygdC+UB4qOcvRLqQvlqbEdMAAAAASUVORK5CYII=" style="width: 100px;">
+                </td>
+            </tr>
+        </table>
+
+        <!-- Section 10: Complex Layout -->
+        <h1 style="break-before: page;">Section 10: Complex Layout with Multiple Features</h1>
+        <div style="border-width: 3px; border-style: double; border-color: #336699; padding: 20px; background-color: #f9f9f9; margin-bottom: 20px;">
+            <h2 style="text-align: center; color: #336699; background-color: white; padding: 15px; border-width: 1px; border-style: solid; border-color: #336699;">
+                Nested Complex Element
+            </h2>
+            <p style="text-align: justify;">
+                This section demonstrates multiple features working together: double borders, background colors, centered headings, padding, margins, and properly formatted text. The combination of all these features shows the robustness of the PDF generation engine.
+            </p>
+            <div style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAACzY+a1AAAD5klEQVR4nO3dWW4bMRBF0VbgZWh7WVW2x310EOTDkKGBQ02Pfd+njRhWHVeRZivm7TzPgyjnV/Y3QFYDoXwglA+E8oFQPhDKB0L5QCgfCOXzdeyS2+/b6D85/+xwMnXTPWCbMNtSVIzQnG0DTgHCAbb7yNdtm3CWJvyANwS2jFoWsiLhOzlztnHOapa1CF/ihcl1W9aBrEL4HC9Rrs+yAmQ+oQBebchkwid+ZfHeQiYqphGq4tWDzCH86SeH9xoyXjGacCu8GpChTyq29Tt+vpawg8DQLnx4VTvhvW7HmF6MINy5+QoMVfdBejm/I3qo+nbhVYZn6lB17MKr+x0Pr9qvF70I8QtTdCHEL1LRnhC/YEVjQvziFS0J8UtR9NnO4BdYGTPC7x8r/N7nbtyINoSRp7o75WZRNwNClsDcRdF0LcQvo1arhCyB6YviEiFLoFVWKmk0SGnBvLrNEzJCi4zTSUJGqEfmqro8SGnB9azVcIaQFvTLRG3XupAWtMpCJYcJaUHvjFZ4oQtpQdvM1nOMkBaMyVCdZ7uQFvTIVFX560/yGSDkOKbmYQ1dKJ9eQjYy8ems+XgXMkW9M1hhBql8ILwGIXvRyvtSulA+EMoHwgsQshAWXw7pQvlAKB8I5QPh7oScblfIe4XuLmQ7Gp++mjNI5QOhfCCUD4TygVA+EMoHQvlAKB8I5QOhfCCUD4TygVA+EF6HsPv+aWKWZkFY4aJTcr5VYJDKB0L5QCgfCC9A+L2WsimNTOvdUdKF8oFQPhBeg5DlsOxCSBfuEAgvSMgs9U7zIeS8Oz6dNWeQymeAkH1ptb3o/9CF8pklpBE90vwJ2dTEZKjOC4OURrTNbD2HCWlE74xWeG07QyNaZaGSM4Q0ol8marv8SwWNuJ61Gk4S0ogemavqfBdyWJN1HONzOoNiXt2WCBmnVlmp5GoXMk4TR6jDMTeKGbUyIHz4IUKxJ81yMbLpQhbFxLqZDVIWxeAl0PmRL4qBlbEkZFGMXAK9uhDFYD+XQYpipJ/XWohimJ/jO9hQjPHzfRMiioe/379bLM7zDL0m4yL3XbS4ow/3twL//O6v0I4t9OjKvQuft+PGvdiizx3jCPcfqi3n3Dj0/1TsPFRb2rl/aBfu2Y4t+aFNDuHzC93kIFuJh25phNqQrdAT02TCl/crloVs5Z545xPKQLaib1eoQvjhxtNEy/b8wxXwKhJ+vro2zLK9/EwdvLqEvZdBm3O2d5+sJqdBOHyr933k63YfLJTFkyFMuaT9rM0mTOjKeeqwbUK4Lnpqmm1LeNnw15/kA6F8IJQPhPKBUD4QygdC+UB4qOcvRLqQvlqbEdMAAAAASUVORK5CYII=); background-size: cover; padding: 30px; margin-top: 15px; border-width: 2px; border-style: dashed; border-color: #336699;">
+                <p style="background-color: rgba(255, 255, 255, 0.95); padding: 15px; text-align: center; font-size: 16px;">
+                    Text over background image with semi-transparent overlay
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="border-top-width: 3px; border-top-style: solid; border-top-color: black; padding-top: 20px; margin-top: 30px; text-align: center;">
+            <p style="color: gray; font-size: 14px;">
+                End of Comprehensive PDF Features Test
+            </p>
+            <p style="color: gray; font-size: 12px;">
+                This document demonstrates: Headings (H1-H6) • Text Alignment (left, center, right) • Colors & Backgrounds • Border Styles (solid, dashed, dotted, double) • Text Wrapping • Images • Background Images (with repeat modes) • Tables • Complex Layouts
+            </p>
+        </div>
+ 
+
+
+<h1 style="break-before: page;">Visual Effects Test - Phase 8</h1>
+
+    <h2>RGBA Colors with Alpha Channel</h2>
+    <p>Note: Alpha channel is parsed but not yet rendered in PDF (requires ExtGState)</p>
+    <div style="padding: 20px; background-color: rgba(255, 0, 0, 0.3); border: 2px solid black;">
+        <p>Red background with 30% opacity (rgba(255, 0, 0, 0.3))</p>
+    </div>
+    <div style="padding: 20px; background-color: rgba(0, 0, 255, 0.5); margin-top: 10px; border: 2px solid black;">
+        <p style="color: white;">Blue background with 50% opacity (rgba(0, 0, 255, 0.5))</p>
+    </div>
+
+    <h2>Layered Boxes with Positioning and Colors</h2>
+    <div style="position: relative; height: 200px; background-color: #f0f0f0; padding: 20px; border: 1px solid #ccc;">
+        <div style="position: absolute; top: 20px; left: 20px; width: 100px; height: 100px; background-color: rgb(255, 100, 100); border: 2px solid rgb(200, 0, 0); z-index: 1;"></div>
+        <div style="position: absolute; top: 50px; left: 70px; width: 100px; height: 100px; background-color: rgb(100, 100, 255); border: 2px solid rgb(0, 0, 200); z-index: 2;"></div>
+        <div style="position: absolute; top: 80px; left: 120px; width: 100px; height: 100px; background-color: rgb(100, 255, 100); border: 2px solid rgb(0, 200, 0); z-index: 3;"></div>
+    </div>
+
+    <h2 style="break-before: page;">Color Variations</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="padding: 15px; background-color: #ff0000; color: white; border: 1px solid #ccc;">Hex Color: #ff0000</td>
+            <td style="padding: 15px; background-color: rgb(0, 255, 0); color: white; border: 1px solid #ccc;">RGB: rgb(0, 255, 0)</td>
+            <td style="padding: 15px; background-color: rgba(0, 0, 255, 0.8); color: white; border: 1px solid #ccc;">RGBA: rgba(0, 0, 255, 0.8)</td>
+        </tr>
+        <tr>
+            <td style="padding: 15px; background-color: orange; border: 1px solid #ccc;">Keyword: orange</td>
+            <td style="padding: 15px; background-color: #808080; color: white; border: 1px solid #ccc;">Gray: #808080</td>
+            <td style="padding: 15px; background-color: rgba(128, 0, 128, 0.6); color: white; border: 1px solid #ccc;">Purple RGBA</td>
+        </tr>
+    </table>
+
+    <h2>Border Styles and Colors</h2>
+    <div style="margin-top: 20px;">
+        <div style="border: 4px solid red; padding: 15px; margin-bottom: 10px;">Solid red border (4px)</div>
+        <div style="border: 3px dashed blue; padding: 15px; margin-bottom: 10px;">Dashed blue border (3px)</div>
+        <div style="border: 3px dotted green; padding: 15px; margin-bottom: 10px;">Dotted green border (3px)</div>
+        <div style="border: 5px double purple; padding: 15px; margin-bottom: 10px;">Double purple border (5px)</div>
+    </div>
+
+    <h2>Mixed Border Sides</h2>
+    <div style="border-top: 3px solid red; border-right: 3px dashed blue; border-bottom: 3px dotted green; border-left: 3px double orange; padding: 20px; margin: 20px 0;">
+        <p>Each side has different style and color</p>
+        <ul>
+            <li>Top: 3px solid red</li>
+            <li>Right: 3px dashed blue</li>
+            <li>Bottom: 3px dotted green</li>
+            <li>Left: 3px double orange</li>
+        </ul>
+    </div>
+
+    <h2 style="break-before: page;">Typography with Colors</h2>
+    <p style="color: #ff0000; font-weight: bold;">Bold red text</p>
+    <p style="color: rgb(0, 128, 0); font-style: italic;">Italic green text</p>
+    <p style="color: rgba(0, 0, 255, 0.7); font-weight: bold; font-style: italic;">Bold italic blue text with alpha</p>
+
+    <h2>Complex Layout with All Features</h2>
+    <div style="position: relative; border: 3px solid #333; padding: 30px; background-color: #fafafa;">
+        <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-weight: bold;">Feature Showcase Card</h3>
+
+        <div style="background-color: rgb(240, 240, 250); padding: 15px; margin-bottom: 15px; border-left: 4px solid rgb(52, 152, 219);">
+            <p style="margin: 0; font-weight: bold; color: rgb(52, 152, 219);">Information Box</p>
+            <p style="margin: 5px 0 0 0; font-size: 14px;">Using RGB colors and border styling</p>
+        </div>
+
+        <div style="background-color: rgba(46, 204, 113, 0.2); padding: 15px; margin-bottom: 15px; border: 2px solid rgb(46, 204, 113); border-radius: 5px;">
+            <p style="margin: 0; font-weight: bold; color: rgb(39, 174, 96);">Success Message</p>
+            <p style="margin: 5px 0 0 0; font-size: 14px;">RGBA background with green border</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; font-style: italic;">Note: border-radius parsed but not rendered (future enhancement)</p>
+        </div>
+
+        <div style="position: absolute; top: 10px; right: 10px; background-color: rgb(231, 76, 60); color: white; padding: 5px 10px; font-size: 12px; font-weight: bold;">
+            NEW
+        </div>
+    </div>
+
+    <h2 style="margin-top: 30px; break-before: page;">Section 2: Sidebar Layout</h2>
+    <div style="position: relative; border: 2px solid #333; height: 200px;">
+        <!-- Fixed sidebar (within container) -->
+        <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 150px; background-color: #2c3e50; color: white; padding: 15px;">
+            <h4 style="margin: 0 0 10px 0; font-size: 14px;">Navigation</h4>
+            <div style="background-color: rgba(255,255,255,0.7); color: black; padding: 8px; margin-bottom: 5px; font-size: 12px;">
+                Home
+            </div>
+            <div style="background-color: rgba(255,255,255,0.7); color: black; padding: 8px; margin-bottom: 5px; font-size: 12px;">
+                About
+            </div>
+            <div style="background-color: rgba(255,255,255,0.7); color: black; padding: 8px; font-size: 12px;">
+                Contact
+            </div>
+        </div>
+
+        <!-- Main content area -->
+        <div style="position: relative; margin-left: 170px; padding: 15px; background-color: #ecf0f1;">
+            <h3 style="margin: 0 0 10px 0;">Main Content</h3>
+            <p style="margin: 0; font-size: 14px;">This content area has a margin to avoid overlapping with the absolutely positioned sidebar.</p>
+
+            <!-- Notification badge -->
+            <div style="position: absolute; top: 10px; right: 10px; background-color: #e74c3c; color: white; border-radius: 12px; padding: 4px 12px; font-size: 12px; z-index: 5;">
+                3 new messages
+            </div>
+        </div>
+    </div>
+
+
+    <h2>Future Enhancements (Documented)</h2>
+    <div style="padding: 20px; background-color: #fffacd; border: 2px dashed #ffa500;">
+        <h3 style="margin-top: 0;">Planned for Future Phases:</h3>
+        <ul>
+            <li><strong>Opacity/Alpha Rendering:</strong> Requires PDF ExtGState for proper transparency</li>
+            <li><strong>Box Shadow:</strong> CSS box-shadow property with blur and spread</li>
+            <li><strong>Border Radius:</strong> Rounded corners using PDF curve operators</li>
+            <li><strong>Gradients:</strong> Linear and radial gradients</li>
+            <li><strong>Transforms:</strong> Rotate, scale, skew transformations</li>
+        </ul>
+    </div>
+
+
+
+
+
+<h1 style="text-align: center; letter-spacing: 2px;break-before: page;">Phase 12: Visual Effects</h1>
+    <p style="text-align: center; color: #666;">Opacity and Box Shadow Properties</p>
+
+    <h2>Feature 1: Opacity Property</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 10px 0; font-size: 14px;">The opacity property controls element transparency (0.0 to 1.0):</p>
+        <table style="border-collapse: collapse; width: 100%;">
+            <tr>
+                <td style="padding: 15px; background-color: #3498db; text-align: center; color: white; opacity: 1.0;">
+                    <p style="margin: 0; font-weight: bold;">opacity: 1.0</p>
+                    <p style="margin: 5px 0 0 0; font-size: 12px;">(Fully opaque)</p>
+                </td>
+                <td style="padding: 15px; background-color: #3498db; text-align: center; color: white; opacity: 0.75;">
+                    <p style="margin: 0; font-weight: bold;">opacity: 0.75</p>
+                    <p style="margin: 5px 0 0 0; font-size: 12px;">(75% opaque)</p>
+                </td>
+                <td style="padding: 15px; background-color: #3498db; text-align: center; color: white; opacity: 0.5;">
+                    <p style="margin: 0; font-weight: bold;">opacity: 0.5</p>
+                    <p style="margin: 5px 0 0 0; font-size: 12px;">(50% opaque)</p>
+                </td>
+                <td style="padding: 15px; background-color: #3498db; text-align: center; color: white; opacity: 0.25;">
+                    <p style="margin: 0; font-weight: bold;">opacity: 0.25</p>
+                    <p style="margin: 5px 0 0 0; font-size: 12px;">(25% opaque)</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <h2 style="margin-top: 25px;">Feature 2: Box Shadow Property</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 15px 0; font-size: 14px;">Box shadow adds depth with offset, blur, spread, and color:</p>
+
+        <div style="width: 180px; height: 90px; background-color: white; border: 1px solid #ddd; padding: 15px; margin: 25px; display: inline-block; box-shadow: 2px 2px 0px 0px #888888;">
+            <p style="margin: 0; font-size: 14px; font-weight: bold;">Small Shadow</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">2px 2px 0px</p>
+        </div>
+
+        <div style="width: 180px; height: 90px; background-color: white; border: 1px solid #ddd; padding: 15px; margin: 25px; display: inline-block; box-shadow: 4px 4px 8px 0px #888888;">
+            <p style="margin: 0; font-size: 14px; font-weight: bold;">Medium Blur</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">4px 4px 8px</p>
+        </div>
+
+        <div style="width: 180px; height: 90px; background-color: white; border: 1px solid #ddd; padding: 15px; margin: 25px; display: inline-block; box-shadow: 6px 6px 12px 2px #888888;">
+            <p style="margin: 0; font-size: 14px; font-weight: bold;">Large + Spread</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">6px 6px 12px 2px</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; break-before: page;">Feature 3: Combined Effects</h2>
+    <div style="border: 2px solid #333; padding: 20px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 15px 0; font-size: 14px;">Combining opacity and box-shadow creates layered visual effects:</p>
+
+        <div style="background-color: #ecf0f1; padding: 30px; position: relative;">
+            <div style="width: 200px; height: 120px; background-color: #e74c3c; position: absolute; left: 50px; top: 40px; box-shadow: 5px 5px 10px 0px #000000; opacity: 0.8;">
+                <p style="margin: 15px; color: white; font-weight: bold;">Red Layer</p>
+                <p style="margin: 0 15px; color: white; font-size: 12px;">opacity: 0.8</p>
+            </div>
+
+            <div style="width: 200px; height: 120px; background-color: #3498db; position: absolute; left: 100px; top: 80px; box-shadow: 5px 5px 10px 0px #000000; opacity: 0.8;">
+                <p style="margin: 15px; color: white; font-weight: bold;">Blue Layer</p>
+                <p style="margin: 0 15px; color: white; font-size: 12px;">opacity: 0.8</p>
+            </div>
+
+            <div style="width: 200px; height: 120px; background-color: #2ecc71; position: absolute; left: 150px; top: 120px; box-shadow: 5px 5px 10px 0px #000000; opacity: 0.8;">
+                <p style="margin: 15px; color: white; font-weight: bold;">Green Layer</p>
+                <p style="margin: 0 15px; color: white; font-size: 12px;">opacity: 0.8</p>
+            </div>
+
+            <!-- Spacer to make room for positioned elements -->
+            <div style="height: 260px;"></div>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px;">Feature 4: Card Design Pattern</h2>
+    <div style="border: 2px solid #333; padding: 20px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 15px 0; font-size: 14px;">Modern card designs using shadows for depth:</p>
+
+        <div style="width: 250px; background-color: white; border-radius: 0; padding: 20px; margin: 15px; display: inline-block; box-shadow: 3px 3px 8px 0px #888888;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Card Title</h3>
+            <p style="margin: 0 0 10px 0; color: #7f8c8d; font-size: 14px;">This is a card with a subtle shadow that gives it depth and makes it appear to float above the surface.</p>
+            <p style="margin: 0; color: #3498db; font-size: 14px; font-weight: bold;">Learn More →</p>
+        </div>
+
+        <div style="width: 250px; background-color: white; border-radius: 0; padding: 20px; margin: 15px; display: inline-block; box-shadow: 5px 5px 15px 2px #888888;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Elevated Card</h3>
+            <p style="margin: 0 0 10px 0; color: #7f8c8d; font-size: 14px;">This card has a larger shadow with spread, creating a more pronounced elevation effect.</p>
+            <p style="margin: 0; color: #3498db; font-size: 14px; font-weight: bold;">Learn More →</p>
+        </div>
+
+        <div style="width: 250px; background-color: white; border-radius: 0; padding: 20px; margin: 15px; display: inline-block; box-shadow: 4px 4px 10px 0px #3498db; opacity: 0.9;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Colored Shadow</h3>
+            <p style="margin: 0 0 10px 0; color: #7f8c8d; font-size: 14px;">This card combines blue shadow with slight transparency for a unique effect.</p>
+            <p style="margin: 0; color: #3498db; font-size: 14px; font-weight: bold;">Learn More →</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; break-before: page;">Feature 5: Text with Transparency</h2>
+    <div style="border: 2px solid #333; padding: 20px; background-color: #2c3e50;">
+        <p style="margin: 0 0 10px 0; color: white; font-size: 24px; font-weight: bold; opacity: 1.0;">Fully Visible Text</p>
+        <p style="margin: 0 0 10px 0; color: white; font-size: 24px; font-weight: bold; opacity: 0.8;">80% Opacity Text</p>
+        <p style="margin: 0 0 10px 0; color: white; font-size: 24px; font-weight: bold; opacity: 0.6;">60% Opacity Text</p>
+        <p style="margin: 0 0 10px 0; color: white; font-size: 24px; font-weight: bold; opacity: 0.4;">40% Opacity Text</p>
+        <p style="margin: 0; color: white; font-size: 24px; font-weight: bold; opacity: 0.2;">20% Opacity Text</p>
+    </div>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #2ecc71; border: 3px solid #27ae60; box-shadow: 5px 5px 15px 0px #16a085;">
+        <p style="margin: 0; text-align: center; font-size: 22px; font-weight: bold; color: white; letter-spacing: 2px;">
+            Phase 12: Visual Effects Complete!
+        </p>
+        <p style="margin: 10px 0 0 0; text-align: center; font-size: 14px; color: white;">
+            Opacity and Box Shadow bring professional visual design to PDF output
+        </p>
+    </div>
+
+
+
+   <h1 style="break-before: page;">Phase 13: Sizing Constraints</h1>
+    <p style="color: #666;">max-width, max-height, min-width, min-height properties</p>
+
+    <h2>Test 1: max-width constraint</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 10px 0; font-size: 14px;">Without max-width, these divs would fill the container:</p>
+
+        <div style="background-color: #3498db; padding: 15px; margin: 10px 0; color: white;">
+            <p style="margin: 0;">No max-width - fills container width</p>
+        </div>
+
+        <div style="background-color: #e74c3c; padding: 15px; margin: 10px 0; color: white; max-width: 400px;">
+            <p style="margin: 0;">max-width: 400px - constrained to 400px even though container is wider</p>
+        </div>
+
+        <div style="background-color: #2ecc71; padding: 15px; margin: 10px 0; color: white; max-width: 250px;">
+            <p style="margin: 0;">max-width: 250px - constrained to 250px</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px;">Test 2: min-width constraint</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 10px 0; font-size: 14px;">min-width ensures elements don't shrink below a threshold:</p>
+
+        <div style="background-color: #9b59b6; padding: 15px; margin: 10px 0; color: white; width: 100px;">
+            <p style="margin: 0; font-size: 12px;">width: 100px</p>
+        </div>
+
+        <div style="background-color: #f39c12; padding: 15px; margin: 10px 0; color: white; width: 100px; min-width: 300px;">
+            <p style="margin: 0; font-size: 12px;">width: 100px, min-width: 300px - expands to 300px</p>
+        </div>
+
+        <div style="background-color: #1abc9c; padding: 15px; margin: 10px 0; color: white; width: 400px; min-width: 200px;">
+            <p style="margin: 0; font-size: 12px;">width: 400px, min-width: 200px - stays at 400px</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; break-before: page;">Test 3: max-height constraint</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 10px 0; font-size: 14px;">max-height limits vertical space:</p>
+
+        <div style="display: inline-block; width: 250px; vertical-align: top; margin: 10px;">
+            <div style="background-color: #3498db; padding: 15px; color: white;">
+                <p style="margin: 0 0 10px 0; font-weight: bold;">No max-height</p>
+                <p style="margin: 0; font-size: 14px;">This box can grow as tall as needed to fit all the content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. More text here to show height expansion.</p>
+            </div>
+        </div>
+
+        <div style="display: inline-block; width: 250px; vertical-align: top; margin: 10px;">
+            <div style="background-color: #e74c3c; padding: 15px; color: white; max-height: 100px; overflow: hidden;">
+                <p style="margin: 0 0 10px 0; font-weight: bold;">max-height: 100px</p>
+                <p style="margin: 0; font-size: 14px;">This box is constrained to 100px height. Extra content is clipped. Lorem ipsum dolor sit amet, consectetur adipiscing elit. More text here but it gets cut off.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; margin-top:10px;">Test 4: min-height constraint</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 10px 0; font-size: 14px;">min-height ensures minimum vertical space:</p>
+
+        <div style="display: inline-block; width: 200px; vertical-align: top; margin: 10px;">
+            <div style="background-color: #9b59b6; padding: 15px; color: white;">
+                <p style="margin: 0;">Small content</p>
+            </div>
+        </div>
+
+        <div style="display: inline-block; width: 200px; vertical-align: top; margin: 10px;">
+            <div style="background-color: #f39c12; padding: 15px; color: white; min-height: 150px;">
+                <p style="margin: 0;">min-height: 150px</p>
+                <p style="margin: 5px 0 0 0; font-size: 12px;">Small content but box is tall</p>
+            </div>
+        </div>
+
+        <div style="display: inline-block; width: 200px; vertical-align: top; margin: 10px;">
+            <div style="background-color: #1abc9c; padding: 15px; color: white; min-height: 80px;">
+                <p style="margin: 0;">min-height: 80px</p>
+                <p style="margin: 5px 0 0 0; font-size: 12px;">Content fits naturally but enforces minimum</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; break-before: page;">Test 5: Combined constraints</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 10px 0; font-size: 14px;">Using min and max together creates flexible yet bounded sizing:</p>
+
+        <div style="background-color: #34495e; padding: 20px; margin: 10px 0; color: white; min-width: 300px; max-width: 500px;">
+            <h3 style="margin: 0 0 10px 0;">Responsive Box</h3>
+            <p style="margin: 0; font-size: 14px;">min-width: 300px, max-width: 500px</p>
+            <p style="margin: 10px 0 0 0; font-size: 12px; color: #ecf0f1;">This box will never be smaller than 300px or larger than 500px, creating a responsive yet controlled layout.</p>
+        </div>
+
+        <div style="background-color: #16a085; padding: 20px; margin: 10px 0; color: white; min-height: 100px; max-height: 200px; overflow: hidden;">
+            <h3 style="margin: 0 0 10px 0;">Height Constrained</h3>
+            <p style="margin: 0; font-size: 14px;">min-height: 100px, max-height: 200px</p>
+            <p style="margin: 10px 0 0 0; font-size: 12px; color: #ecf0f1;">This box maintains a height between 100px and 200px. If content exceeds 200px, it will be clipped with overflow:hidden.</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px;">Test 6: Practical use case - Card layout</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <p style="margin: 0 0 15px 0; font-size: 14px;">Cards with consistent sizing:</p>
+
+        <div style="display: inline-block; width: 250px; min-height: 180px; max-height: 180px; background-color: white; border: 1px solid #ddd; padding: 20px; margin: 10px; vertical-align: top; box-shadow: 3px 3px 8px 0px #888888;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Short Card</h3>
+            <p style="margin: 0; color: #7f8c8d; font-size: 14px;">This card has little content but min-height ensures consistent sizing.</p>
+        </div>
+
+        <div style="display: inline-block; width: 250px; min-height: 180px; max-height: 180px; background-color: white; border: 1px solid #ddd; padding: 20px; margin: 10px; vertical-align: top; box-shadow: 3px 3px 8px 0px #888888; overflow: hidden;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Long Card</h3>
+            <p style="margin: 0; color: #7f8c8d; font-size: 14px;">This card has lots of content that would normally make it taller, but max-height keeps it the same size as other cards. Extra content is hidden with overflow:hidden for a clean grid layout.</p>
+        </div>
+
+        <div style="display: inline-block; width: 250px; min-height: 180px; max-height: 180px; background-color: white; border: 1px solid #ddd; padding: 20px; margin: 10px; vertical-align: top; box-shadow: 3px 3px 8px 0px #888888;">
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Medium Card</h3>
+            <p style="margin: 0; color: #7f8c8d; font-size: 14px;">This card has medium content that naturally fits within the constraints.</p>
+        </div>
+    </div>
+ 
+
+
+<h1 style="break-before: page;">Phase 14: Border Radius Visual Rendering</h1> 
+
+    <h5>Test 1: Basic Border Radius</h5>
+    <div style="border: 2px solid #333; padding: 5px; background-color: #f5f5f5;">
+        <div style="width: 150px; height: 100px; background-color: #3498db; border-radius: 10px; margin: 10px; display: inline-block;">
+            <p style="margin: 10px; color: white; font-size: 14px;">10px radius</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: #e74c3c; border-radius: 20px; margin: 10px; display: inline-block;">
+            <p style="margin: 10px; color: white; font-size: 14px;">20px radius</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: #2ecc71; border-radius: 30px; margin: 10px; display: inline-block;">
+            <p style="margin: 10px; color: white; font-size: 14px;">30px radius</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: #f39c12; border-radius: 50px; margin: 10px; display: inline-block;">
+            <p style="margin: 10px; color: white; font-size: 14px;">50px radius<br>(circle)</p>
+        </div>
+    </div>
+
+    <h5 style="margin-top: 15px;">Test 2: Border Radius with Borders</h5>
+    <div style="border: 2px solid #333; padding: s5px; background-color: #f5f5f5;">
+        <div style="width: 150px; height: 100px; background-color: white; border: 3px solid #3498db; border-radius: 15px; margin: 10px; display: inline-block; padding: 10px;">
+            <p style="margin: 0; font-size: 14px;">Solid border<br>15px radius</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: white; border: 3px dashed #e74c3c; border-radius: 15px; margin: 10px; display: inline-block; padding: 10px;">
+            <p style="margin: 0; font-size: 14px;">Dashed border<br>15px radius</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: white; border: 3px dotted #2ecc71; border-radius: 15px; margin: 10px; display: inline-block; padding: 10px;">
+            <p style="margin: 0; font-size: 14px;">Dotted border<br>15px radius</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: white; border: 5px solid #9b59b6; border-radius: 25px; margin: 10px; display: inline-block; padding: 10px;">
+            <p style="margin: 0; font-size: 14px;">Thick border<br>25px radius</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px;">Test 3: Pills and Circles</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #f5f5f5;">
+        <div style="width: 200px; height: 50px; background-color: #3498db; border-radius: 25px; margin: 10px; display: inline-block; padding: 10px;">
+            <p style="margin: 5px 0; color: white; text-align: center;">Pill Shape (25px)</p>
+        </div>
+
+        <div style="width: 180px; height: 40px; background-color: #e74c3c; border-radius: 20px; margin: 10px; display: inline-block; padding: 8px;">
+            <p style="margin: 5px 0; color: white; text-align: center; font-size: 14px;">Rounded Pill (20px)</p>
+        </div>
+
+        <div style="width: 100px; height: 100px; background-color: #2ecc71; border-radius: 50px; margin: 10px; display: inline-block;">
+            <p style="margin: 35px 0; color: white; text-align: center; font-size: 14px;">Circle<br>50px</p>
+        </div>
+
+        <div style="width: 80px; height: 80px; background-color: #f39c12; border-radius: 40px; margin: 10px; display: inline-block;">
+            <p style="margin: 25px 0; color: white; text-align: center; font-size: 13px;">Circle<br>40px</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; break-before: page;">Test 4: Border Radius with Box Shadow</h2>
+    <div style="border: 2px solid #333; padding: 25px; background-color: #f5f5f5;">
+        <div style="width: 180px; height: 100px; background-color: white; border: 2px solid #ddd; border-radius: 12px; margin: 20px; display: inline-block; padding: 15px; box-shadow: 4px 4px 8px 0px #888888;">
+            <p style="margin: 0; font-size: 14px; font-weight: bold;">Card with Shadow</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">12px radius<br>with shadow</p>
+        </div>
+
+        <div style="width: 180px; height: 100px; background-color: white; border: 2px solid #ddd; border-radius: 20px; margin: 20px; display: inline-block; padding: 15px; box-shadow: 6px 6px 12px 0px #888888;">
+            <p style="margin: 0; font-size: 14px; font-weight: bold;">Rounded Card</p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">20px radius<br>larger shadow</p>
+        </div>
+
+        <div style="width: 180px; height: 100px; background-color: #3498db; border-radius: 15px; margin: 20px; display: inline-block; padding: 15px; box-shadow: 5px 5px 10px 0px #2980b9;">
+            <p style="margin: 0; color: white; font-size: 14px; font-weight: bold;">Colored Card</p>
+            <p style="margin: 5px 0 0 0; color: white; font-size: 12px;">Blue with<br>blue shadow</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px;">Test 5: Border Radius with Opacity</h2>
+    <div style="border: 2px solid #333; padding: 15px; background-color: #2c3e50;">
+        <div style="width: 150px; height: 100px; background-color: #e74c3c; border-radius: 20px; margin: 15px; display: inline-block; opacity: 1.0;">
+            <p style="margin: 35px 10px; color: white; text-align: center; font-size: 14px;">opacity: 1.0</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: #e74c3c; border-radius: 20px; margin: 15px; display: inline-block; opacity: 0.8;">
+            <p style="margin: 35px 10px; color: white; text-align: center; font-size: 14px;">opacity: 0.8</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: #e74c3c; border-radius: 20px; margin: 15px; display: inline-block; opacity: 0.6;">
+            <p style="margin: 35px 10px; color: white; text-align: center; font-size: 14px;">opacity: 0.6</p>
+        </div>
+
+        <div style="width: 150px; height: 100px; background-color: #e74c3c; border-radius: 20px; margin: 15px; display: inline-block; opacity: 0.4;">
+            <p style="margin: 35px 10px; color: white; text-align: center; font-size: 14px;">opacity: 0.4</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px; break-before: page;">Test 6: Modern Button Designs</h2>
+    <div style="border: 2px solid #333; padding: 20px; background-color: #f5f5f5;">
+        <div style="width: 150px; height: 45px; background-color: #3498db; border-radius: 5px; margin: 10px; display: inline-block; padding: 10px; text-align: center;">
+            <p style="margin: 5px 0; color: white; font-size: 16px; font-weight: bold;">Primary</p>
+        </div>
+
+        <div style="width: 150px; height: 45px; background-color: #2ecc71; border-radius: 8px; margin: 10px; display: inline-block; padding: 10px; text-align: center;">
+            <p style="margin: 5px 0; color: white; font-size: 16px; font-weight: bold;">Success</p>
+        </div>
+
+        <div style="width: 150px; height: 45px; background-color: #e74c3c; border-radius: 8px; margin: 10px; display: inline-block; padding: 10px; text-align: center;">
+            <p style="margin: 5px 0; color: white; font-size: 16px; font-weight: bold;">Danger</p>
+        </div>
+
+        <div style="width: 150px; height: 45px; background-color: white; border: 2px solid #3498db; border-radius: 8px; margin: 10px; display: inline-block; padding: 10px; text-align: center;">
+            <p style="margin: 5px 0; color: #3498db; font-size: 16px; font-weight: bold;">Outline</p>
+        </div>
+
+        <div style="width: 160px; height: 50px; background-color: #9b59b6; border-radius: 25px; margin: 10px; display: inline-block; padding: 12px; text-align: center; box-shadow: 3px 3px 8px 0px #888888;">
+            <p style="margin: 5px 0; color: white; font-size: 16px; font-weight: bold;">Pill Button</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 25px;">Test 7: Card Layouts</h2>
+    <div style="border: 2px solid #333; padding: 10px; background-color: #f5f5f5;">
+        <div style="width: 250px; background-color: white; border-radius: 12px; margin: 15px; display: inline-block; vertical-align: top; box-shadow: 4px 4px 10px 0px #888888; overflow: hidden;">
+            <div style="width: 250px; height: 120px; background-color: #3498db;"></div>
+            <div style="padding: 10px;">
+                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Card Title</h3>
+                <p style="margin: 0; color: #7f8c8d; font-size: 14px;">This is a modern card design with rounded corners and shadow effect.</p>
+            </div>
+        </div>
+
+        <div style="width: 250px; background-color: white; border-radius: 12px; margin: 15px; display: inline-block; vertical-align: top; box-shadow: 4px 4px 10px 0px #888888; overflow: hidden;">
+            <div style="width: 250px; height: 120px; background-color: #e74c3c;"></div>
+            <div style="padding: 10px;">
+                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Another Card</h3>
+                <p style="margin: 0; color: #7f8c8d; font-size: 14px;">Cards with rounded corners look professional and modern in PDF documents.</p>
+            </div>
+        </div>
+    </div>
+ 
+
+<h1 style="break-before: page; break-before: page; margin-top:10px;">Phase 15: Individual Corner Border Radius Test</h1>
+    <p>Testing border-radius shorthand expansion and individual corner properties.</p>
+
+    <h2>Section 1: Individual Corner Properties</h2>
+    <div class="test-container">
+        <div class="test-1"></div>
+        <div class="test-label">Test 1: All corners different<br>30px 10px 40px 20px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-2"></div>
+        <div class="test-label">Test 2: Top-left only<br>40px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-3"></div>
+        <div class="test-label">Test 3: Top-right only<br>40px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-4"></div>
+        <div class="test-label">Test 4: Bottom-right only<br>40px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-5"></div>
+        <div class="test-label">Test 5: Bottom-left only<br>40px</div>
+    </div>
+
+    <h2 style="break-before: page;">Section 2: Diagonal and Partial Corners</h2>
+    <div class="test-container">
+        <div class="test-6"></div>
+        <div class="test-label">Test 6: Diagonal TL+BR<br>35px each</div>
+    </div>
+    <div class="test-container">
+        <div class="test-7"></div>
+        <div class="test-label">Test 7: Diagonal TR+BL<br>35px each</div>
+    </div>
+    <div class="test-container">
+        <div class="test-8"></div>
+        <div class="test-label">Test 8: Three corners<br>25px each</div>
+    </div>
+
+    <h2>Section 3: Shorthand Expansion</h2>
+    <div class="test-container">
+        <div class="test-9"></div>
+        <div class="test-label">Test 9: 2-value shorthand<br>40px 10px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-10"></div>
+        <div class="test-label">Test 10: 3-value shorthand<br>40px 20px 10px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-11"></div>
+        <div class="test-label">Test 11: Very different<br>50px 5px 25px 15px</div>
+    </div>
+
+    <h2 style="break-before: page;">Section 4: Complex Cases</h2>
+    <div class="test-container">
+        <div class="test-12"></div>
+        <div class="test-label">Test 12: With border<br>30px 10px 40px 20px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-13"></div>
+        <div class="test-label">Test 13: Small square<br>TL+BR 40px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-14">Pill with text</div>
+        <div class="test-label">Test 14: Uniform pill<br>30px all</div>
+    </div>
+
+    <h2 style=" margin-top:10px;">Section 5: Practical Examples</h2>
+    <div class="test-container">
+        <div class="test-15"></div>
+        <div class="test-label">Test 15: Asymmetric<br>50px 10px 50px 10px</div>
+    </div>
+    <div class="test-container">
+        <div class="test-16">
+            <div class="card-title">Card Title</div>
+            <div class="card-text">Card with rounded top corners and slightly rounded bottom.</div>
+        </div>
+        <div class="test-label">Test 16: Card style<br>20px 20px 5px 5px</div>
+    </div>
+
+ <p style="break-before: page;"></p>
+    <div class="section">
+        <h4>Test 1: Translation Transforms</h4>
+        <div style="position: relative; height: 250px; background-color: #ecf0f1; padding: 0px;">
+            <!-- Reference box -->
+            <div style="position: absolute; left: 10px; top: 10px; width: 100px; height: 100px; border: 2px dashed #95a5a6;"></div>
+
+            <!-- Translated boxes -->
+            <div style="position: absolute; left: 10px; top: 10px; width: 100px; height: 100px; background-color: #3498db; opacity: 0.7; transform: translate(50px, 0px);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">translateX<br>50px</p>
+            </div>
+
+            <div style="position: absolute; left: 100px; top: 10px; width: 100px; height: 100px; border: 2px dashed #95a5a6;"></div>
+            <div style="position: absolute; left: 100px; top: 10px; width: 100px; height: 100px; background-color: #e74c3c; opacity: 0.7; transform: translate(0px, 50px);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">translateY<br>50px</p>
+            </div>
+
+            <div style="position: absolute; left: 250px; top: 10px; width: 100px; height: 100px; border: 2px dashed #95a5a6;"></div>
+            <div style="position: absolute; left: 250px; top: 10px; width: 100px; height: 100px; background-color: #2ecc71; opacity: 0.7; transform: translate(30px, 30px);">
+                <p style="margin: 35px 5px; color: white; font-size: 11px; text-align: center;">translate<br>30px, 30px</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h4>Test 2: Rotation Transforms</h4>
+        <div style="text-align: center; padding: 10px; background-color: #ecf0f1;">
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #3498db; margin: 30px;">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">No rotation</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #e74c3c; margin: 30px; transform: rotate(15deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">rotate<br>15deg</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #2ecc71; margin: 30px; transform: rotate(45deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">rotate<br>45deg</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #f39c12; margin: 30px; transform: rotate(90deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">rotate<br>90deg</p>
+            </div>
+        </div>
+    </div>
+
+ <p style="break-before: page;"></p>
+    <div class="section" style="  margin-top:10px;">
+        <h4>Test 3: Scale Transforms</h4>
+        <div style="text-align: center; padding: 10px; background-color: #ecf0f1;">
+            <div style="display: inline-block; width: 80px; height: 80px; background-color: #3498db; margin: 30px; transform: scale(0.5);">
+                <p style="margin: 25px 5px; color: white; font-size: 11px; text-align: center;">scale(0.5)</p>
+            </div>
+
+            <div style="display: inline-block; width: 80px; height: 80px; background-color: #e74c3c; margin: 30px;">
+                <p style="margin: 25px 5px; color: white; font-size: 11px; text-align: center;">scale(1.0)</p>
+            </div>
+
+            <div style="display: inline-block; width: 80px; height: 80px; background-color: #2ecc71; margin: 30px; transform: scale(1.5);">
+                <p style="margin: 25px 5px; color: white; font-size: 11px; text-align: center;">scale(1.5)</p>
+            </div>
+
+            <div style="display: inline-block; width: 80px; height: 80px; background-color: #9b59b6; margin: 30px; transform: scale(1.5, 0.8);">
+                <p style="margin: 25px 5px; color: white; font-size: 10px; text-align: center;">scale<br>(1.5, 0.8)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style=" margin-top:10px;"> 
+        <div style="text-align: center; padding: 10px; background-color: #ecf0f1;">
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #3498db; margin: 30px;">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">No skew</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #e74c3c; margin: 30px; transform: skewX(20deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">skewX<br>20deg</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #2ecc71; margin: 30px; transform: skewY(20deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 12px; text-align: center;">skewY<br>20deg</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #f39c12; margin: 30px; transform: skew(15deg, 15deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 11px; text-align: center;">skew<br>15, 15deg</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="break-before: page; margin-top:10px;">
+        <h4>Test 5: Combined Transforms</h4>
+        <div style="text-align: center; padding: 10px; background-color: #ecf0f1;">
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #3498db; margin: 40px; transform: rotate(30deg) scale(1.2);">
+                <p style="margin: 30px 5px; color: white; font-size: 10px; text-align: center;">rotate + scale</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #e74c3c; margin: 40px; transform: translate(20px, -10px) rotate(45deg);">
+                <p style="margin: 30px 5px; color: white; font-size: 10px; text-align: center;">translate + rotate</p>
+            </div>
+
+            <div style="display: inline-block; width: 100px; height: 100px; background-color: #2ecc71; margin: 40px; transform: scale(1.3) skewX(10deg);">
+                <p style="margin: 30px 5px; color: white; font-size: 10px; text-align: center;">scale + skew</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style=" margin-top:10px;">
+        <h4>Test 6: Transform-Origin</h4>
+        <div style="position: relative; height: 300px; background-color: #ecf0f1; padding: 20px;">
+            <p style="margin: 0 0 15px 0; font-size: 14px;">Same rotation (45deg) with different transform-origin:</p>
+
+            <!-- Top-left origin -->
+            <div style="position: absolute; left: 50px; top: 60px; width: 100px; height: 100px; border: 1px dashed #95a5a6;"></div>
+            <div style="position: absolute; left: 50px; top: 60px; width: 100px; height: 100px; background-color: #3498db; opacity: 0.7; transform: rotate(45deg); transform-origin: left top;">
+                <p style="margin: 35px 5px; color: white; font-size: 10px; text-align: center;">origin:<br>left top</p>
+            </div>
+
+            <!-- Center origin (default) -->
+            <div style="position: absolute; left: 200px; top: 60px; width: 100px; height: 100px; border: 1px dashed #95a5a6;"></div>
+            <div style="position: absolute; left: 200px; top: 60px; width: 100px; height: 100px; background-color: #e74c3c; opacity: 0.7; transform: rotate(45deg);">
+                <p style="margin: 35px 5px; color: white; font-size: 10px; text-align: center;">origin:<br>center</p>
+            </div>
+
+            <!-- Bottom-right origin -->
+            <div style="position: absolute; left: 350px; top: 60px; width: 100px; height: 100px; border: 1px dashed #95a5a6;"></div>
+            <div style="position: absolute; left: 350px; top: 60px; width: 100px; height: 100px; background-color: #2ecc71; opacity: 0.7; transform: rotate(45deg); transform-origin: right bottom;">
+                <p style="margin: 35px 5px; color: white; font-size: 10px; text-align: center;">origin:<br>right bottom</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phase 16: 3D Border Styles -->
+    <h1 style="break-before: page;">Phase 16: 3D Border Styles</h1>
+
+    <div class="section">
+        <h2>Test 7: Groove, Ridge, Inset, Outset Borders</h2>
+        <div style="padding: 20px; background-color: #ecf0f1;">
+            <div style="display: inline-block; width: 150px; height: 100px; border: 8px groove #666; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px;">8px groove<br>#666</p>
+            </div>
+
+            <div style="display: inline-block; width: 150px; height: 100px; border: 8px ridge #666; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px;">8px ridge<br>#666</p>
+            </div>
+
+            <div style="display: inline-block; width: 150px; height: 100px; border: 8px inset #666; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px;">8px inset<br>#666</p>
+            </div>
+
+            <div style="display: inline-block; width: 150px; height: 100px; border: 8px outset #666; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px;">8px outset<br>#666</p>
+            </div>
+        </div>
+
+        <div style="padding: 20px; background-color: #ecf0f1; margin-top: 20px;">
+            <h3 style="margin: 0 0 15px 0;">3D Borders with Different Colors:</h3>
+            <div style="display: inline-block; width: 150px; height: 100px; border: 10px groove #3498db; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px; color: #3498db;">Blue<br>groove</p>
+            </div>
+
+            <div style="display: inline-block; width: 150px; height: 100px; border: 10px ridge #e74c3c; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px; color: #e74c3c;">Red<br>ridge</p>
+            </div>
+
+            <div style="display: inline-block; width: 150px; height: 100px; border: 10px inset #2ecc71; padding: 15px; margin: 15px; background-color: white;">
+                <p style="margin: 0; text-align: center; padding-top: 20px; color: #2ecc71;">Green<br>inset</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text Effects -->
+    <h1  style="break-before: page;">Text Effects & Typography</h1>
+
+    <div class="section">
+        <h2>Test 8: Text Decoration</h2>
+        <p style="font-size: 18px;">This is <span style="text-decoration: underline;">underlined text</span> in a sentence.</p>
+        <p style="font-size: 18px;">This is <span style="text-decoration: line-through;">strikethrough text</span> in a sentence.</p>
+        <p style="font-size: 18px;">This is <span style="text-decoration: overline;">overlined text</span> in a sentence.</p>
+        <p style="text-decoration: underline; font-size: 16px; color: #3498db;">Entire paragraph underlined in blue</p>
+    </div>
+
+    <div class="section" style="break-before: page; margin-top:10px;">
+        <h2>Test 9: Letter-Spacing and Word-Spacing</h2>
+        <p style="font-size: 16px;">Normal spacing: The quick brown fox jumps over the lazy dog.</p>
+        <p style="font-size: 16px; letter-spacing: 2px;">Letter-spacing 2px: The quick brown fox jumps over the lazy dog.</p>
+        <p style="font-size: 16px; letter-spacing: 5px;">Letter-spacing 5px: The quick brown fox jumps over the lazy dog.</p>
+        <p style="font-size: 16px; word-spacing: 10px;">Word-spacing 10px: The quick brown fox jumps over the lazy dog.</p>
+        <p style="font-size: 16px; letter-spacing: 3px; word-spacing: 15px;">Combined: letter-spacing 3px + word-spacing 15px</p>
+    </div>
+
+    <div class="section">
+        <h2>Test 10: Font Weight and Style Combinations</h2>
+        <p style="font-size: 16px; font-weight: normal; font-style: normal;">Normal weight, normal style</p>
+        <p style="font-size: 16px; font-weight: bold; font-style: normal;">Bold weight, normal style</p>
+        <p style="font-size: 16px; font-weight: normal; font-style: italic;">Normal weight, italic style</p>
+        <p style="font-size: 16px; font-weight: bold; font-style: italic;">Bold weight, italic style</p>
+    </div>
+
+    <!-- List Styles -->
+    <h1 style="break-before: page;">List Styles</h1>
+
+    <div class="section">
+        <h2>Test 11: Unordered Lists (ul)</h2>
+        <ul>
+            <li>Default bullet style</li>
+            <li>Second item with more text to show wrapping behavior in list items when the content is longer</li>
+            <li>Third item</li>
+        </ul>
+
+        <ul style="list-style-type: circle;">
+            <li>Circle bullet style</li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ul>
+
+        <ul style="list-style-type: square;">
+            <li>Square bullet style</li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Test 12: Ordered Lists (ol)</h2>
+        <ol>
+            <li>Default decimal numbering</li>
+            <li>Second item with more text to demonstrate how numbered lists handle longer content that wraps to multiple lines</li>
+            <li>Third item</li>
+        </ol>
+
+        <ol style="list-style-type: lower-alpha;">
+            <li>Lower alpha numbering</li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ol>
+
+        <ol style="list-style-type: upper-roman;">
+            <li>Upper roman numbering</li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ol>
+    </div>
+
+    <!-- Complex Combinations -->
+    <h1>Complex Feature Combinations</h1>
+
+    <div class="section">
+        <h2>Test 13: Transform + Border-Radius + Shadow + Opacity</h2>
+        <div style="text-align: center; padding: 10px; background-color: #2c3e50;">
+            <div style="display: inline-block; width: 120px; height: 120px; background-color: #3498db; border-radius: 15px; box-shadow: 5px 5px 15px 0px #000000; opacity: 0.9; transform: rotate(15deg); margin: 20px;">
+                <p style="margin: 45px 10px; color: white; font-size: 12px; text-align: center;">All effects combined</p>
+            </div>
+
+            <div style="display: inline-block; width: 120px; height: 120px; background-color: #e74c3c; border-radius: 20px; box-shadow: 6px 6px 12px 2px #000000; opacity: 0.85; transform: scale(1.2) rotate(-10deg); margin: 20px;">
+                <p style="margin: 45px 10px; color: white; font-size: 11px; text-align: center;">Scale + Rotate</p>
+            </div>
+
+            <div style="display: inline-block; width: 120px; height: 120px; background-color: #2ecc71; border-radius: 25px; box-shadow: 4px 4px 10px 0px #1abc9c; opacity: 0.95; transform: translate(10px, -10px) rotate(20deg); margin: 20px;">
+                <p style="margin: 45px 10px; color: white; font-size: 11px; text-align: center;">Translate + Rotate</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="break-before: page; margin-top:10px;">
+        <h2>Test 14: Transformed Card with 3D Border</h2>
+        <div style="text-align: center; padding: 40px; background-color: #ecf0f1;">
+            <div style="display: inline-block; width: 200px; background-color: white; border: 8px groove #95a5a6; border-radius: 12px; padding: 20px; box-shadow: 5px 5px 15px 0px #7f8c8d; transform: rotate(-5deg); margin: 20px;">
+                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Tilted Card</h3>
+                <p style="margin: 0; font-size: 14px; color: #7f8c8d;">Groove border with rotation transform</p>
+            </div>
+
+            <div style="display: inline-block; width: 200px; background-color: white; border: 8px ridge #3498db; border-radius: 12px; padding: 20px; box-shadow: 5px 5px 15px 0px #2980b9; transform: scale(1.1); margin: 20px;">
+                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Scaled Card</h3>
+                <p style="margin: 0; font-size: 14px; color: #7f8c8d;">Ridge border with scale transform</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="margin-top: 40px; padding: 25px; background-color: #2ecc71; border: 3px solid #27ae60; border-radius: 15px; box-shadow: 5px 5px 15px 0px #16a085; transform: rotate(-1deg);">
+        <p style="margin: 0; text-align: center; font-size: 24px; font-weight: bold; color: white; letter-spacing: 3px;">
+            Additional Features Test Complete!
+        </p>
+        <p style="margin: 10px 0 0 0; text-align: center; font-size: 14px; color: white;">
+            Transforms • 3D Borders • Text Effects • Lists • Complex Combinations
+        </p>
+    </div>
+
+    <div style="break-before: page;">
+    <h1>Flexbox Layout Tests</h1>
+
+    <h2>Test 1: Flex Row with justify-content</h2>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; border: 2px solid black; padding: 10px; height: 100px;">
+        <div style="width: 80px; height: 80px; background-color: #ff6b6b;">Red</div>
+        <div style="width: 80px; height: 80px; background-color: #4ecdc4;">Cyan</div>
+        <div style="width: 80px; height: 80px; background-color: #45b7d1;">Blue</div>
+    </div>
+
+    <h2>Test 2: Flex Row Center</h2>
+    <div style="display: flex; flex-direction: row; justify-content: center; border: 2px solid black; padding: 10px; margin-top: 20px;">
+        <div style="width: 100px; height: 60px; background-color: #96ceb4; margin: 5px;">Item 1</div>
+        <div style="width: 100px; height: 60px; background-color: #ffeaa7; margin: 5px;">Item 2</div>
+        <div style="width: 100px; height: 60px; background-color: #dfe6e9; margin: 5px;">Item 3</div>
+    </div>
+
+    <h2>Test 3: Flex Column</h2>
+    <div style="display: flex; flex-direction: column; border: 2px solid black; padding: 10px; margin-top: 20px; width: 200px;">
+        <div style="height: 50px; background-color: #a29bfe; margin: 5px;">Top</div>
+        <div style="height: 50px; background-color: #fd79a8; margin: 5px;">Middle</div>
+        <div style="height: 50px; background-color: #fdcb6e; margin: 5px;">Bottom</div>
+    </div>
+
+    <h2 style="break-before: page;">Test 4: Flex with flex-grow</h2>
+    <div style="display: flex; flex-direction: row; border: 2px solid black; padding: 10px; margin-top: 20px;">
+        <div style="flex-grow: 1; height: 60px; background-color: #74b9ff; margin: 5px;">Grow 1</div>
+        <div style="flex-grow: 2; height: 60px; background-color: #a29bfe; margin: 5px;">Grow 2</div>
+        <div style="flex-grow: 1; height: 60px; background-color: #fd79a8; margin: 5px;">Grow 1</div>
+    </div>
+
+    <h2>Test 5: Flex with align-items</h2>
+    <div style="display: flex; flex-direction: row; align-items: center; border: 2px solid black; padding: 10px; margin-top: 10px; height: 150px;">
+        <div style="width: 80px; height: 40px; background-color: #55efc4;">Short</div>
+        <div style="width: 80px; height: 80px; background-color: #81ecec;">Medium</div>
+        <div style="width: 80px; height: 120px; background-color: #74b9ff;">Tall</div>
+    </div>
+
+    <h2>Test 6: Flex Row Reverse</h2>
+    <div style="display: flex; flex-direction: row-reverse; border: 2px solid black; padding: 10px; margin-top: 20px;">
+        <div style="width: 80px; height: 60px; background-color: #ff7675; margin: 5px;">1</div>
+        <div style="width: 80px; height: 60px; background-color: #fdcb6e; margin: 5px;">2</div>
+        <div style="width: 80px; height: 60px; background-color: #00b894; margin: 5px;">3</div>
+    </div>
+
+    <h2>Test 7: Space Around</h2>
+    <div style="display: flex; flex-direction: row; justify-content: space-around; border: 2px solid black; padding: 10px; margin-top: 20px;">
+        <div style="width: 70px; height: 70px; background-color: #e17055;">A</div>
+        <div style="width: 70px; height: 70px; background-color: #6c5ce7;">B</div>
+        <div style="width: 70px; height: 70px; background-color: #00cec9;">C</div>
+    </div>
+	</div>
+	
+	<div style="break-before: page;">
+	<h1>CSS Grid Layout Tests</h1>
+
+    <h2>Test 1: Simple 3-Column Grid</h2>
+    <div style="display: grid; grid-template-columns: 100px 150px 200px; border: 2px solid black; padding: 10px; gap: 10px;">
+        <div style="background-color: #ff6b6b; padding: 15px;">Item 1</div>
+        <div style="background-color: #4ecdc4; padding: 15px;">Item 2</div>
+        <div style="background-color: #45b7d1; padding: 15px;">Item 3</div>
+        <div style="background-color: #96ceb4; padding: 15px;">Item 4</div>
+        <div style="background-color: #ffeaa7; padding: 15px;">Item 5</div>
+        <div style="background-color: #dfe6e9; padding: 15px;">Item 6</div>
+    </div>
+
+    <h2>Test 2: Fractional Units (fr)</h2>
+    <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; border: 2px solid black; padding: 10px; gap: 15px; margin-top: 20px;">
+        <div style="background-color: #a29bfe; padding: 15px;">1fr</div>
+        <div style="background-color: #fd79a8; padding: 15px;">2fr (double width)</div>
+        <div style="background-color: #fdcb6e; padding: 15px;">1fr</div>
+    </div>
+
+    <h2>Test 3: Mixed Units</h2>
+    <div style="display: grid; grid-template-columns: 100px 1fr 2fr; border: 2px solid black; padding: 10px; gap: 10px; margin-top: 20px;">
+        <div style="background-color: #74b9ff; padding: 15px;">Fixed 100px</div>
+        <div style="background-color: #a29bfe; padding: 15px;">1fr</div>
+        <div style="background-color: #fd79a8; padding: 15px;">2fr</div>
+    </div>
+
+    <h2 style="break-before: page;">Test 4: Repeat Function</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); border: 2px solid black; padding: 10px; gap: 10px; margin-top: 20px;">
+        <div style="background-color: #55efc4; padding: 15px;">1</div>
+        <div style="background-color: #81ecec; padding: 15px;">2</div>
+        <div style="background-color: #74b9ff; padding: 15px;">3</div>
+        <div style="background-color: #a29bfe; padding: 15px;">4</div>
+        <div style="background-color: #ff7675; padding: 15px;">5</div>
+        <div style="background-color: #fdcb6e; padding: 15px;">6</div>
+        <div style="background-color: #00b894; padding: 15px;">7</div>
+        <div style="background-color: #e17055; padding: 15px;">8</div>
+    </div>
+
+    <h2>Test 5: Auto Columns</h2>
+    <div style="display: grid; grid-template-columns: auto auto auto; border: 2px solid black; padding: 10px; gap: 10px; margin-top: 20px;">
+        <div style="background-color: #e17055; padding: 15px;">Auto Width</div>
+        <div style="background-color: #6c5ce7; padding: 15px;">Auto Width</div>
+        <div style="background-color: #00cec9; padding: 15px;">Auto Width</div>
+    </div>
+
+    <h2 style="break-before: page;">Test 6: With Defined Rows</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 80px 100px; border: 2px solid black; padding: 10px; gap: 10px; margin-top: 20px;">
+        <div style="background-color: #fd79a8; padding: 10px;">Row 1, Col 1 (80px high)</div>
+        <div style="background-color: #fdcb6e; padding: 10px;">Row 1, Col 2 (80px high)</div>
+        <div style="background-color: #a29bfe; padding: 10px;">Row 2, Col 1 (100px high)</div>
+        <div style="background-color: #74b9ff; padding: 10px;">Row 2, Col 2 (100px high)</div>
+    </div>
+
+    <h2 style="break-before: page;">Test 7: 2x3 Grid Layout</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 100px 120px; border: 2px solid black; padding: 10px; gap: 15px; margin-top: 20px;">
+        <div style="background-color: #ff6b6b; padding: 15px;">1</div>
+        <div style="background-color: #4ecdc4; padding: 15px;">2</div>
+        <div style="background-color: #45b7d1; padding: 15px;">3</div>
+        <div style="background-color: #96ceb4; padding: 15px;">4</div>
+        <div style="background-color: #ffeaa7; padding: 15px;">5</div>
+        <div style="background-color: #dfe6e9; padding: 15px;">6</div>
+    </div>
+	</div>
+
+<div style="break-before: page;">
+<h1>CSS Gradients Enhancement</h1>
+
+    <h2>Linear Gradients</h2>
+
+    <h3>Test 1: Simple Two-Color Gradient</h3>
+    <div style="width: 300px; height: 100px; background-image: linear-gradient(red, blue); margin-bottom: 10px;"></div>
+    <p><em>linear-gradient(red, blue) - default direction (to bottom)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 2: Horizontal Gradient (to right)</h3>
+    <div style="width: 300px; height: 100px; background-image: linear-gradient(to right, #FF5722, #FFC107); margin-bottom: 10px;"></div>
+    <p><em>linear-gradient(to right, #FF5722, #FFC107)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 3: Three-Color Gradient</h3>
+    <div style="width: 300px; height: 100px; background-image: linear-gradient(red, yellow, blue); margin-bottom: 10px;"></div>
+    <p><em>linear-gradient(red, yellow, blue)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 4: Gradient with Angle (45deg)</h3>
+    <div style="width: 300px; height: 100px; background-image: linear-gradient(45deg, #4CAF50, #2196F3); margin-bottom: 10px;"></div>
+    <p><em>linear-gradient(45deg, #4CAF50, #2196F3)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 5: Gradient with Explicit Color Stops</h3>
+    <div style="width: 300px; height: 100px; background-image: linear-gradient(red 0%, yellow 50%, blue 100%); margin-bottom: 10px;"></div>
+    <p><em>linear-gradient(red 0%, yellow 50%, blue 100%)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 6: Multiple Gradients Side-by-Side</h3>
+    <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+        <div style="flex: 1; height: 100px; background-image: linear-gradient(to bottom, #FF5722, #FFC107);"></div>
+        <div style="flex: 1; height: 100px; background-image: linear-gradient(to right, #4CAF50, #2196F3);"></div>
+        <div style="flex: 1; height: 100px; background-image: linear-gradient(135deg, #9C27B0, #E91E63);"></div>
+    </div>
+    <p><em>Three different gradient directions</em></p>
+
+    <h2 style="margin-top: 40px; break-before: page;">Radial Gradients</h2>
+
+    <h3>Test 7: Simple Radial Gradient</h3>
+    <div style="width: 200px; height: 200px; background-image: radial-gradient(red, blue); margin-bottom: 10px;"></div>
+    <p><em>radial-gradient(red, blue)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 8: Three-Color Radial</h3>
+    <div style="width: 200px; height: 200px; background-image: radial-gradient(yellow, orange, red); margin-bottom: 10px;"></div>
+    <p><em>radial-gradient(yellow, orange, red)</em></p>
+
+    <h3 style="margin-top: 30px;">Test 9: Radial with Circle Shape</h3>
+    <div style="width: 200px; height: 200px; background-image: radial-gradient(circle, #4CAF50, #1B5E20); margin-bottom: 10px;"></div>
+    <div><em>radial-gradient(circle, #4CAF50, #1B5E20)</em></div>
+
+    <h2 style="margin-top: 10px; break-before: page;">Practical Examples</h2>
+
+    <h3>Test 10: Gradient Button</h3>
+    <div style="width: 200px; padding: 15px 30px; background-image: linear-gradient(to bottom, #2196F3, #1976D2); color: white; text-align: center; border-radius: 5px; font-weight: bold; margin-bottom: 10px;">
+        Click Me
+    </div>
+    <p><em>Button with gradient background</em></p>
+
+    <h3 style="margin-top: 30px;">Test 11: Gradient Header</h3>
+    <div style="padding: 30px; background-image: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+        <h1 style="margin: 0; font-size: 32px; color: white;">Welcome</h1>
+        <p style="margin: 10px 0 0 0; font-size: 18px;">Beautiful gradient header section</p>
+    </div> 
+
+    <h3 style="margin-top: 30px; break-before: page;">Test 12: Card with Gradient</h3>
+    <div style="width: 300px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+        <div style="height: 150px; background-image: linear-gradient(to right, #f093fb, #f5576c);"></div>
+        <div style="padding: 20px;">
+            <h3 style="margin: 0 0 10px 0;">Card Title</h3>
+            <p style="margin: 0; color: #666;">This card has a beautiful gradient header that makes it stand out.</p>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 10px;">Test 13: Gradient Text Container</h3>
+    <div style="padding: 20px; background-image: linear-gradient(to right, #ffecd2, #fcb69f); border-radius: 10px;">
+        <p style="margin: 0; font-size: 18px; color: #333;">This text sits on a gentle warm gradient background, creating a pleasing visual effect.</p>
+    </div>
+    <p><em>Warm gradient for text backgrounds</em></p>
+
+    <h3 style="margin-top: 30px;">Test 14: Multiple Gradient Boxes</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div style="width: 120px; height: 120px; background-image: radial-gradient(#FFD700, #FFA500);"></div>
+        <div style="width: 120px; height: 120px; background-image: linear-gradient(45deg, #667eea, #764ba2);"></div>
+        <div style="width: 120px; height: 120px; background-image: radial-gradient(#00C9FF, #92FE9D);"></div>
+        <div style="width: 120px; height: 120px; background-image: linear-gradient(135deg, #f093fb, #f5576c);"></div>
+    </div>
+    <p><em>Grid of various gradients</em></p>
+
+    <div style="background-color: #e3f2fd; border-left: 4px solid #2196F3; break-before: page; padding: 15px; margin-top: 40px;">
+        <h3 style="margin-top: 0;">CSS Gradient Enhancement</h3>
+        <p style="margin-bottom: 0;">
+            The <code>linear-gradient()</code> and <code>radial-gradient()</code> functions are now supported via
+            the <code>background-image</code> property. Gradients are rendered by approximating them with multiple
+            color steps for smooth transitions.
+        </p>
+    </div>
+</div>
+</div>
+</body>
+</html>
