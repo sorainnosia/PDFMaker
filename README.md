@@ -2,7 +2,7 @@
 An app to convert HTML to PDF
 
 ## HTML
-<img width="480" height="700" alt="image" src="https://github.com/user-attachments/assets/a690f099-06a7-4025-8bfd-a93e2f56bb76" />
+<img width="680" alt="image" src="https://github.com/user-attachments/assets/a690f099-06a7-4025-8bfd-a93e2f56bb76" />
 
 ## PDF
 <img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/88967375-6e58-4bf1-8da9-687a2e63b4c1" />
