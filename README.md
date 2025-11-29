@@ -32,39 +32,6 @@ Download PDFMaker from the Google Play Store:
 
 [**Download on Google Play**](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
 
-### Command Line Tool
-
-Build from source using Cargo:
-
-```bash
-cargo build --release
-```
-
-The executable will be available at `target/release/pdfmaker.exe` (Windows) or `target/release/pdfmaker` (Linux/macOS).
-
-## Usage
-
-### Command Line
-
-```bash
-# Basic usage (defaults to A4 paper)
-pdfmaker -i input.html -o output.pdf
-
-# Specify paper size
-pdfmaker -i input.html -o output.pdf -s letter
-pdfmaker -i input.html -o output.pdf -s legal
-pdfmaker -i input.html -o output.pdf -s a3
-
-# Custom dimensions (in PDF points, 1 point = 1/72 inch)
-pdfmaker -i input.html -o output.pdf --width 612 --height 792
-
-# With external CSS file
-pdfmaker -i input.html -o output.pdf -c styles.css
-
-# View all options
-pdfmaker --help
-```
-
 ### Paper Sizes
 
 | Size | Dimensions | Points |
@@ -73,15 +40,6 @@ pdfmaker --help
 | A3 | 297mm × 420mm | 842 × 1191 |
 | Letter | 8.5in × 11in | 612 × 792 |
 | Legal | 8.5in × 14in | 612 × 1008 |
-
-### As a Rust Library
-
-Add to your `Cargo.toml`:
-
-```toml
-[dependencies]
-pdfmaker = { path = "path/to/pdfmaker" }
-```
 
 ## Supported CSS Features
 
@@ -127,47 +85,6 @@ pdfmaker = { path = "path/to/pdfmaker" }
 </html>
 ```
 
-## Project Structure
-
-```
-pdfmaker/
-├── src/                  # Core library source code
-│   ├── lib.rs           # Library entry point
-│   ├── main.rs          # CLI application
-│   ├── dom.rs           # HTML DOM parsing
-│   ├── css.rs           # CSS parsing
-│   ├── style.rs         # Style computation
-│   ├── layout.rs        # Layout engine
-│   ├── render.rs        # Rendering engine
-│   ├── pdf.rs           # PDF generation
-│   └── font.rs          # Font handling
-├── tauri_web/           # Tauri desktop/mobile app
-│   ├── ui/              # Web UI frontend
-│   ├── src/             # Tauri Rust backend
-│   └── gen/android/     # Android build files
-└── examples/            # Example HTML files
-```
-
-## Building
-
-### CLI Tool
-
-```bash
-cargo build --release
-```
-
-### Android App
-
-```bash
-cd tauri_web
-cargo tauri android build
-```
-
-## License
-
-MIT License
-
 ## Links
 
 - [Google Play Store](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
-- [Report Issues](https://github.com/anthropics/claude-code/issues)
