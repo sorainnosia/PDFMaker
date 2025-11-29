@@ -16,14 +16,13 @@ A fast, lightweight HTML to PDF converter built with Rust. Convert HTML document
 
 ## Features
 
-- **HTML to PDF Conversion** - Convert HTML documents with full CSS support
+- **HTML to PDF Conversion** - Convert HTML documents with common CSS support
 - **Multiple Paper Sizes** - Support for A4, A3, Letter, and Legal paper sizes
-- **CSS Styling** - Full support for modern CSS including Flexbox, Grid, and more
+- **CSS Styling** - Support for modern CSS including Flexbox, Grid, and more
 - **Page Breaks** - Control pagination with `break-before: page` and `break-after: page`
 - **Custom Fonts** - Support for various font families and styles
 - **Images & SVG** - Embed images and SVG graphics in your PDFs
-- **Tables** - Full table support with borders, backgrounds, and cell styling
-- **Cross-Platform** - Available as CLI tool, library, and Android app
+- **Tables** - Full table support with borders, backgrounds, and cell styling 
 
 ## Installation
 
