@@ -2,7 +2,7 @@
 
 A fast, lightweight HTML to PDF converter built with Rust. Convert HTML documents with CSS styling into high-quality PDF files.
 
-[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic_small.png" width="200">](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
 
 ## HTML
 <img width="680" alt="image" src="https://github.com/user-attachments/assets/a690f099-06a7-4025-8bfd-a93e2f56bb76" />
