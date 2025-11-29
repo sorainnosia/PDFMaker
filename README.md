@@ -1,5 +1,8 @@
 # PDFMaker
-An app to convert HTML to PDF
+
+A fast, lightweight HTML to PDF converter built with Rust. Convert HTML documents with CSS styling into high-quality PDF files.
+
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
 
 ## HTML
 <img width="680" alt="image" src="https://github.com/user-attachments/assets/a690f099-06a7-4025-8bfd-a93e2f56bb76" />
@@ -10,3 +13,162 @@ An app to convert HTML to PDF
 <img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/8e689461-486d-44ff-ab8a-5d4bb142a3eb" />
 
 <img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/192eda84-a985-432c-9337-01e325c641d0" />
+
+## Features
+
+- **HTML to PDF Conversion** - Convert HTML documents with full CSS support
+- **Multiple Paper Sizes** - Support for A4, A3, Letter, and Legal paper sizes
+- **CSS Styling** - Full support for modern CSS including Flexbox, Grid, and more
+- **Page Breaks** - Control pagination with `break-before: page` and `break-after: page`
+- **Custom Fonts** - Support for various font families and styles
+- **Images & SVG** - Embed images and SVG graphics in your PDFs
+- **Tables** - Full table support with borders, backgrounds, and cell styling
+- **Cross-Platform** - Available as CLI tool, library, and Android app
+
+## Installation
+
+### Android App
+
+Download PDFMaker from the Google Play Store:
+
+[**Download on Google Play**](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
+
+### Command Line Tool
+
+Build from source using Cargo:
+
+```bash
+cargo build --release
+```
+
+The executable will be available at `target/release/pdfmaker.exe` (Windows) or `target/release/pdfmaker` (Linux/macOS).
+
+## Usage
+
+### Command Line
+
+```bash
+# Basic usage (defaults to A4 paper)
+pdfmaker -i input.html -o output.pdf
+
+# Specify paper size
+pdfmaker -i input.html -o output.pdf -s letter
+pdfmaker -i input.html -o output.pdf -s legal
+pdfmaker -i input.html -o output.pdf -s a3
+
+# Custom dimensions (in PDF points, 1 point = 1/72 inch)
+pdfmaker -i input.html -o output.pdf --width 612 --height 792
+
+# With external CSS file
+pdfmaker -i input.html -o output.pdf -c styles.css
+
+# View all options
+pdfmaker --help
+```
+
+### Paper Sizes
+
+| Size | Dimensions | Points |
+|------|------------|--------|
+| A4 (default) | 210mm × 297mm | 595 × 842 |
+| A3 | 297mm × 420mm | 842 × 1191 |
+| Letter | 8.5in × 11in | 612 × 792 |
+| Legal | 8.5in × 14in | 612 × 1008 |
+
+### As a Rust Library
+
+Add to your `Cargo.toml`:
+
+```toml
+[dependencies]
+pdfmaker = { path = "path/to/pdfmaker" }
+```
+
+## Supported CSS Features
+
+- **Layout**: `display` (block, inline, inline-block, flex, grid, table)
+- **Box Model**: `margin`, `padding`, `border`, `width`, `height`
+- **Flexbox**: `flex-direction`, `justify-content`, `align-items`, `flex-wrap`, `gap`
+- **Grid**: `grid-template-columns`, `grid-template-rows`, `grid-gap`
+- **Typography**: `font-family`, `font-size`, `font-weight`, `font-style`, `line-height`, `text-align`, `text-decoration`
+- **Colors**: `color`, `background-color`, `opacity`, RGBA support
+- **Positioning**: `position` (static, relative, absolute, fixed), `top`, `right`, `bottom`, `left`
+- **Page Breaks**: `break-before`, `break-after`, `page-break-before`, `page-break-after`
+- **And more**: `transform`, `border-radius`, `box-shadow`, `list-style-type`, etc.
+
+## Example HTML
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+        }
+        .page-break {
+            break-before: page;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Document</h1>
+    <p>This is the first page content.</p>
+
+    <div class="page-break">
+        <h1>Second Page</h1>
+        <p>This content appears on a new page.</p>
+    </div>
+</body>
+</html>
+```
+
+## Project Structure
+
+```
+pdfmaker/
+├── src/                  # Core library source code
+│   ├── lib.rs           # Library entry point
+│   ├── main.rs          # CLI application
+│   ├── dom.rs           # HTML DOM parsing
+│   ├── css.rs           # CSS parsing
+│   ├── style.rs         # Style computation
+│   ├── layout.rs        # Layout engine
+│   ├── render.rs        # Rendering engine
+│   ├── pdf.rs           # PDF generation
+│   └── font.rs          # Font handling
+├── tauri_web/           # Tauri desktop/mobile app
+│   ├── ui/              # Web UI frontend
+│   ├── src/             # Tauri Rust backend
+│   └── gen/android/     # Android build files
+└── examples/            # Example HTML files
+```
+
+## Building
+
+### CLI Tool
+
+```bash
+cargo build --release
+```
+
+### Android App
+
+```bash
+cd tauri_web
+cargo tauri android build
+```
+
+## License
+
+MIT License
+
+## Links
+
+- [Google Play Store](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
+- [Report Issues](https://github.com/anthropics/claude-code/issues)
