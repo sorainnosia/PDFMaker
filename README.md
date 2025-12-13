@@ -4,9 +4,6 @@ A fast, lightweight HTML to PDF converter built with Rust. Convert HTML document
 
 <img width="680" alt="image" src="https://github.com/user-attachments/assets/4714ba84-454a-47b0-a3cb-8292bd53bac7" />
 
-## HTML
-<img width="680" alt="image" src="https://github.com/user-attachments/assets/a690f099-06a7-4025-8bfd-a93e2f56bb76" />
-
 ## PDF
 <img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/88967375-6e58-4bf1-8da9-687a2e63b4c1" />
 
