@@ -11,7 +11,7 @@ const WASM_CACHE_NAME: &str = "pdfmaker_bg.wasm";
 
 /// Host-side stand-ins for the JS values the wasm passes around as `externref`.
 /// Only the variants the synchronous `html_to_pdf` path needs are modelled.
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 enum HostRef {
     Undefined,
     Null,
@@ -20,16 +20,14 @@ enum HostRef {
     Global,
     /// `globalThis.crypto` — an object with `getRandomValues`.
     Crypto,
-    /// A JS string created from wasm memory by the `Ref(String) -> Externref` cast.
-    Str(StrRef),
-    /// A `Uint8Array` view into wasm memory (ptr/len), created by the slice cast and
-    /// written into by `getRandomValues`.
-    U8View { ptr: u32, len: u32 },
+    /// The product of a `(ptr, len) -> externref` cast intrinsic. The same wasm-bindgen
+    /// signature is used both for `Ref(String) -> Externref` (consumed by `console.log`,
+    /// read as `text`) and `Ref(Slice<u8>) -> Uint8Array` (consumed by `getRandomValues`,
+    /// which writes into wasm memory at `ptr..ptr+len`). We can't tell them apart by
+    /// signature, so we keep BOTH the live ptr/len (for writing) and an eager UTF-8 snapshot
+    /// (for reading — safe even after the producing call returns).
+    Mem { ptr: u32, len: u32, text: String },
 }
-
-/// Strings can be long; box them so `HostRef` stays small and `Copy`.
-#[derive(Clone, Copy)]
-struct StrRef(&'static str);
 
 /// Per-store host state: a tiny PRNG to back `getRandomValues`. The engine only uses
 /// randomness for HashMap DoS seeds and the PDF document id, so a time-seeded splitmix64
@@ -225,12 +223,7 @@ fn ensure_wasm() -> anyhow::Result<PathBuf> {
 fn host_ref(caller: &Caller<'_, HostState>, r: Option<Rooted<ExternRef>>) -> Option<HostRef> {
     let r = r?;
     let data: &(dyn Any + Send + Sync) = r.data(caller).ok().flatten()?;
-    data.downcast_ref::<HostRef>().copied()
-}
-
-fn new_ref(caller: &mut Caller<'_, HostState>, v: HostRef) -> anyhow::Result<Val> {
-    let r = ExternRef::new(&mut *caller, v)?;
-    Ok(Val::ExternRef(Some(r)))
+    data.downcast_ref::<HostRef>().cloned()
 }
 
 fn convert(
@@ -260,10 +253,9 @@ fn convert(
     let mut store = Store::new(&engine, HostState { rng: seed });
 
     let mut linker: Linker<HostState> = Linker::new(&engine);
-    define_imports(&mut linker)?;
-    // Everything we didn't define (fetch / Promise / Response / DOM accessors, only used
-    // by the async variants) becomes a trap — if the sync path ever hit one we'd see it.
-    linker.define_unknown_imports_as_traps(&module)?;
+    // Bind imports by matching the wasm's actual import list (auto-adapting to whatever
+    // hash suffixes the downloaded wasm-bindgen build used); everything else traps.
+    define_imports(&mut linker, &module)?;
 
     let instance = linker.instantiate(&mut store, &module)?;
 
@@ -344,7 +336,7 @@ fn take_error_message(
         Some(Ref::Extern(Some(r))) => {
             let data: &(dyn Any + Send + Sync) = r.data(&*store).ok().flatten()?;
             match data.downcast_ref::<HostRef>() {
-                Some(HostRef::Str(StrRef(s))) => Some((*s).to_string()),
+                Some(HostRef::Mem { text, .. }) => Some(text.clone()),
                 _ => None,
             }
         }
@@ -380,193 +372,206 @@ fn pass_string(
     Ok((ptr, len))
 }
 
-/// Read a UTF-8 string out of wasm memory and leak it so it can live inside a `HostRef`
-/// (these back transient `console.log` arguments; the leak is bounded by log volume).
-fn read_static_string(caller: &mut Caller<'_, HostState>, ptr: i32, len: i32) -> &'static str {
+/// Read a UTF-8 (lossy) string out of wasm memory.
+fn read_string(caller: &mut Caller<'_, HostState>, ptr: i32, len: i32) -> String {
     let mem = match caller.get_export("memory").and_then(Extern::into_memory) {
         Some(m) => m,
-        None => return "",
+        None => return String::new(),
     };
-    let mut buf = vec![0u8; len as usize];
+    let mut buf = vec![0u8; len.max(0) as usize];
     if mem.read(&*caller, ptr as usize, &mut buf).is_err() {
-        return "";
+        return String::new();
     }
-    let s = String::from_utf8_lossy(&buf).into_owned();
-    Box::leak(s.into_boxed_str())
+    String::from_utf8_lossy(&buf).into_owned()
 }
 
-/// Define the imports the synchronous `html_to_pdf` path actually calls.
-fn define_imports(linker: &mut Linker<HostState>) -> anyhow::Result<()> {
-    // --- externref table init (run from __wbindgen_start) ---
-    // Grow the module's externref table by 4 and seed the canonical [undefined, null,
-    // true, false] slots, mirroring wasm-bindgen's `__wbindgen_init_externref_table`.
-    linker.func_wrap(
-        "wbg",
-        "__wbindgen_init_externref_table",
-        |mut caller: Caller<'_, HostState>| -> anyhow::Result<()> {
-            let table = caller
-                .get_export("__wbindgen_externrefs")
-                .and_then(Extern::into_table)
-                .ok_or_else(|| anyhow::anyhow!("missing __wbindgen_externrefs table"))?;
-            let undef = ExternRef::new(&mut caller, HostRef::Undefined)?;
-            let offset = table.grow(&mut caller, 4, Ref::Extern(Some(undef)))?;
-            let undef0 = ExternRef::new(&mut caller, HostRef::Undefined)?;
-            table.set(&mut caller, 0, Ref::Extern(Some(undef0)))?;
-            let null = ExternRef::new(&mut caller, HostRef::Null)?;
-            table.set(&mut caller, offset + 1, Ref::Extern(Some(null)))?;
-            let t = ExternRef::new(&mut caller, HostRef::Bool(true))?;
-            table.set(&mut caller, offset + 2, Ref::Extern(Some(t)))?;
-            let f = ExternRef::new(&mut caller, HostRef::Bool(false))?;
-            table.set(&mut caller, offset + 3, Ref::Extern(Some(f)))?;
-            Ok(())
-        },
-    )?;
-
-    // --- console logging: a string cast then log(externref) ---
-    // `__wbindgen_cast_2241…`: Ref(String) -> Externref
-    linker.func_wrap(
-        "wbg",
-        "__wbindgen_cast_2241b6af4c4b2941",
-        |mut caller: Caller<'_, HostState>, ptr: i32, len: i32| -> anyhow::Result<Option<Rooted<ExternRef>>> {
-            let s = read_static_string(&mut caller, ptr, len);
-            let r = ExternRef::new(&mut caller, HostRef::Str(StrRef(s)))?;
-            Ok(Some(r))
-        },
-    )?;
-    // `__wbindgen_cast_cb90…`: Ref(Slice(U8)) -> NamedExternref("Uint8Array")
-    linker.func_wrap(
-        "wbg",
-        "__wbindgen_cast_cb9088102bce6b30",
-        |mut caller: Caller<'_, HostState>, ptr: i32, len: i32| -> anyhow::Result<Option<Rooted<ExternRef>>> {
-            let r = ExternRef::new(
-                &mut caller,
-                HostRef::U8View { ptr: ptr as u32, len: len as u32 },
-            )?;
-            Ok(Some(r))
-        },
-    )?;
-    // console.log / console.warn from the engine — print the message verbatim (no prefix).
-    let print_msg = |caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>| {
-        if let Some(HostRef::Str(StrRef(s))) = host_ref(&caller, arg) {
-            eprintln!("{s}");
+/// Strip wasm-bindgen's trailing `_<hash>` from an import name so we can match on the
+/// stable semantic part (e.g. `__wbg_log_8cec76766b8c0e33` -> `__wbg_log`). The hash is a
+/// run of lowercase hex digits (typically 16); names without one are returned unchanged
+/// (e.g. `__wbindgen_init_externref_table`).
+fn strip_bindgen_hash(name: &str) -> &str {
+    if let Some(i) = name.rfind('_') {
+        let suffix = &name[i + 1..];
+        if suffix.len() >= 8
+            && suffix.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+        {
+            return &name[..i];
         }
+    }
+    name
+}
+
+// --- import handlers (shared by whatever hashed names the wasm actually uses) ---
+
+/// `(ptr, len) -> externref` cast intrinsic. See `HostRef::Mem`.
+fn h_cast(mut caller: Caller<'_, HostState>, ptr: i32, len: i32) -> anyhow::Result<Option<Rooted<ExternRef>>> {
+    let text = read_string(&mut caller, ptr, len);
+    let r = ExternRef::new(&mut caller, HostRef::Mem { ptr: ptr as u32, len: len as u32, text })?;
+    Ok(Some(r))
+}
+
+/// console.log / console.warn — print the cast string verbatim.
+fn h_log(caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>) {
+    if let Some(HostRef::Mem { text, .. }) = host_ref(&caller, arg) {
+        eprintln!("{text}");
+    }
+}
+
+/// `globalThis.crypto` -> a crypto object (so the browser-crypto path is taken).
+fn h_crypto(mut caller: Caller<'_, HostState>, _g: Option<Rooted<ExternRef>>) -> anyhow::Result<Option<Rooted<ExternRef>>> {
+    Ok(Some(ExternRef::new(&mut caller, HostRef::Crypto)?))
+}
+
+/// `globalThis.process` / `.versions` / `.node` / `.msCrypto` -> undefined, so getrandom
+/// skips the Node.js path.
+fn h_undefined1(mut caller: Caller<'_, HostState>, _a: Option<Rooted<ExternRef>>) -> anyhow::Result<Option<Rooted<ExternRef>>> {
+    Ok(Some(ExternRef::new(&mut caller, HostRef::Undefined)?))
+}
+
+/// `static_accessor_*` -> table index of a fresh `globalThis` externref.
+fn h_global(mut caller: Caller<'_, HostState>) -> anyhow::Result<i32> {
+    let g = ExternRef::new(&mut caller, HostRef::Global)?;
+    externref_table_add(&mut caller, Val::ExternRef(Some(g)))
+}
+
+/// `crypto.getRandomValues(view)` / Node `randomFillSync` — fill the buffer at `ptr..len`.
+fn h_get_random(mut caller: Caller<'_, HostState>, _c: Option<Rooted<ExternRef>>, view: Option<Rooted<ExternRef>>) -> anyhow::Result<()> {
+    let (ptr, len) = match host_ref(&caller, view) {
+        Some(HostRef::Mem { ptr, len, .. }) => (ptr as usize, len as usize),
+        _ => anyhow::bail!("getRandomValues called with a non-buffer argument"),
     };
-    linker.func_wrap("wbg", "__wbg_log_8cec76766b8c0e33", print_msg)?;
-    linker.func_wrap("wbg", "__wbg_warn_1d74dddbe2fd1dbb", print_msg)?;
+    let mut buf = vec![0u8; len];
+    {
+        let st = caller.data_mut();
+        let mut i = 0;
+        while i < len {
+            let r = st.next_u64().to_le_bytes();
+            let n = (len - i).min(8);
+            buf[i..i + n].copy_from_slice(&r[..n]);
+            i += n;
+        }
+    }
+    let mem = caller
+        .get_export("memory")
+        .and_then(Extern::into_memory)
+        .ok_or_else(|| anyhow::anyhow!("no memory export for getRandomValues"))?;
+    mem.write(&mut caller, ptr, &buf)
+        .map_err(|e| anyhow::anyhow!("getRandomValues write: {e}"))?;
+    Ok(())
+}
 
-    // --- getrandom browser-crypto probing ---
-    // global accessors return an *index* into the externref table holding `globalThis`.
-    for name in [
-        "__wbg_static_accessor_GLOBAL_THIS_8b530f326a9e48ac",
-        "__wbg_static_accessor_SELF_6fdf4b64710cc91b",
-        "__wbg_static_accessor_WINDOW_b45bfc5a37f6cfa2",
-        "__wbg_static_accessor_GLOBAL_89e1d9ac6a1b250e",
-    ] {
-        linker.func_wrap(
-            "wbg",
-            name,
-            |mut caller: Caller<'_, HostState>| -> anyhow::Result<i32> {
-                let g = ExternRef::new(&mut caller, HostRef::Global)?;
-                externref_table_add(&mut caller, Val::ExternRef(Some(g)))
-            },
-        )?;
+fn h_is_object(caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>) -> i32 {
+    matches!(host_ref(&caller, arg), Some(HostRef::Global | HostRef::Crypto)) as i32
+}
+fn h_is_string(caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>) -> i32 {
+    matches!(host_ref(&caller, arg), Some(HostRef::Mem { .. })) as i32
+}
+fn h_is_function(_c: Caller<'_, HostState>, _a: Option<Rooted<ExternRef>>) -> i32 { 0 }
+fn h_is_undefined(caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>) -> i32 {
+    matches!(host_ref(&caller, arg), None | Some(HostRef::Undefined)) as i32
+}
+
+fn h_throw(mut caller: Caller<'_, HostState>, ptr: i32, len: i32) -> anyhow::Result<()> {
+    let s = read_string(&mut caller, ptr, len);
+    anyhow::bail!("wasm threw: {s}")
+}
+
+/// `__wbindgen_init_externref_table` — grow the externref table by 4 and seed the canonical
+/// [undefined, null, true, false] slots.
+fn h_init_table(mut caller: Caller<'_, HostState>) -> anyhow::Result<()> {
+    let table = caller
+        .get_export("__wbindgen_externrefs")
+        .and_then(Extern::into_table)
+        .ok_or_else(|| anyhow::anyhow!("missing __wbindgen_externrefs table"))?;
+    let undef = ExternRef::new(&mut caller, HostRef::Undefined)?;
+    let offset = table.grow(&mut caller, 4, Ref::Extern(Some(undef)))?;
+    let undef0 = ExternRef::new(&mut caller, HostRef::Undefined)?;
+    table.set(&mut caller, 0, Ref::Extern(Some(undef0)))?;
+    let null = ExternRef::new(&mut caller, HostRef::Null)?;
+    table.set(&mut caller, offset + 1, Ref::Extern(Some(null)))?;
+    let t = ExternRef::new(&mut caller, HostRef::Bool(true))?;
+    table.set(&mut caller, offset + 2, Ref::Extern(Some(t)))?;
+    let f = ExternRef::new(&mut caller, HostRef::Bool(false))?;
+    table.set(&mut caller, offset + 3, Ref::Extern(Some(f)))?;
+    Ok(())
+}
+
+/// Bind exactly the imports the synchronous `html_to_pdf` path uses, identifying each by
+/// its hash-stripped name and type signature (so it adapts to whatever wasm-bindgen build
+/// was downloaded). Everything else is trapped — those are only reached by the async /
+/// fetch / DOM variants we never call.
+fn define_imports(linker: &mut Linker<HostState>, module: &Module) -> anyhow::Result<()> {
+    use wasmtime::{ExternType, ValType};
+
+    // Signature predicate: chars are 'i'=i32, 'f'=f64, 'e'=externref.
+    fn val_is(t: &ValType, k: char) -> bool {
+        match k {
+            'i' => matches!(t, ValType::I32),
+            'f' => matches!(t, ValType::F64),
+            'e' => matches!(t, ValType::Ref(r) if r.heap_type().is_extern()),
+            _ => false,
+        }
     }
-    // globalThis.crypto -> a crypto object; globalThis.process -> undefined (skip Node path).
-    linker.func_wrap(
-        "wbg",
-        "__wbg_crypto_574e78ad8b13b65f",
-        |mut caller: Caller<'_, HostState>, _global: Option<Rooted<ExternRef>>| -> anyhow::Result<Option<Rooted<ExternRef>>> {
-            Ok(Some(ExternRef::new(&mut caller, HostRef::Crypto)?))
-        },
-    )?;
-    for name in [
-        "__wbg_process_dc0fbacc7c1c06f7",
-        "__wbg_versions_c01dfd4722a88165",
-        "__wbg_node_905d3e251edff8a2",
-        "__wbg_msCrypto_a61aeb35a24c1329",
-    ] {
-        linker.func_wrap(
-            "wbg",
-            name,
-            |mut caller: Caller<'_, HostState>, _arg: Option<Rooted<ExternRef>>| -> anyhow::Result<Option<Rooted<ExternRef>>> {
-                Ok(Some(ExternRef::new(&mut caller, HostRef::Undefined)?))
-            },
-        )?;
+    fn sig(ft: &wasmtime::FuncType, params: &str, results: &str) -> bool {
+        ft.params().len() == params.len()
+            && ft.results().len() == results.len()
+            && ft.params().zip(params.chars()).all(|(t, k)| val_is(&t, k))
+            && ft.results().zip(results.chars()).all(|(t, k)| val_is(&t, k))
     }
-    // crypto.getRandomValues(view): fill the wasm-memory-backed Uint8Array with randomness.
-    linker.func_wrap(
-        "wbg",
-        "__wbg_getRandomValues_b8f5dbd5f3995a9e",
-        |mut caller: Caller<'_, HostState>, _crypto: Option<Rooted<ExternRef>>, view: Option<Rooted<ExternRef>>| -> anyhow::Result<()> {
-            let (ptr, len) = match host_ref(&caller, view) {
-                Some(HostRef::U8View { ptr, len }) => (ptr as usize, len as usize),
-                _ => anyhow::bail!("getRandomValues called with non-Uint8Array argument"),
-            };
-            // Generate into a local buffer first (borrows host state), then copy into wasm
-            // memory — avoids holding two mutable borrows of `caller` at once.
-            let mut buf = vec![0u8; len];
+
+    for imp in module.imports() {
+        let ft = match imp.ty() {
+            ExternType::Func(ft) => ft,
+            _ => continue,
+        };
+        let modname = imp.module().to_string();
+        let name = imp.name().to_string();
+        match strip_bindgen_hash(&name) {
+            "__wbindgen_init_externref_table" if sig(&ft, "", "") => {
+                linker.func_wrap(&modname, &name, h_init_table)?;
+            }
+            "__wbg_log" | "__wbg_warn" if sig(&ft, "e", "") => {
+                linker.func_wrap(&modname, &name, h_log)?;
+            }
+            "__wbg_crypto" if sig(&ft, "e", "e") => {
+                linker.func_wrap(&modname, &name, h_crypto)?;
+            }
+            "__wbg_process" | "__wbg_versions" | "__wbg_node" | "__wbg_msCrypto"
+                if sig(&ft, "e", "e") =>
             {
-                let st = caller.data_mut();
-                let mut i = 0;
-                while i < len {
-                    let r = st.next_u64().to_le_bytes();
-                    let n = (len - i).min(8);
-                    buf[i..i + n].copy_from_slice(&r[..n]);
-                    i += n;
-                }
+                linker.func_wrap(&modname, &name, h_undefined1)?;
             }
-            let mem = caller
-                .get_export("memory")
-                .and_then(Extern::into_memory)
-                .ok_or_else(|| anyhow::anyhow!("no memory export for getRandomValues"))?;
-            mem.write(&mut caller, ptr, &buf)
-                .map_err(|e| anyhow::anyhow!("getRandomValues write: {e}"))?;
-            Ok(())
-        },
-    )?;
-
-    // --- type predicates over our HostRefs ---
-    linker.func_wrap(
-        "wbg",
-        "__wbg___wbindgen_is_object_c818261d21f283a4",
-        |caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>| -> i32 {
-            matches!(host_ref(&caller, arg), Some(HostRef::Global | HostRef::Crypto)) as i32
-        },
-    )?;
-    linker.func_wrap(
-        "wbg",
-        "__wbg___wbindgen_is_string_fbb76cb2940daafd",
-        |caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>| -> i32 {
-            matches!(host_ref(&caller, arg), Some(HostRef::Str(_))) as i32
-        },
-    )?;
-    linker.func_wrap(
-        "wbg",
-        "__wbg___wbindgen_is_function_ee8a6c5833c90377",
-        |_c: Caller<'_, HostState>, _a: Option<Rooted<ExternRef>>| -> i32 { 0 },
-    )?;
-    linker.func_wrap(
-        "wbg",
-        "__wbg___wbindgen_is_undefined_2d472862bd29a478",
-        |caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>| -> i32 {
-            // A null externref or an explicit Undefined both read as `undefined`.
-            match host_ref(&caller, arg) {
-                None | Some(HostRef::Undefined) => 1,
-                _ => 0,
+            "__wbg_getRandomValues" | "__wbg_randomFillSync" if sig(&ft, "ee", "") => {
+                linker.func_wrap(&modname, &name, h_get_random)?;
             }
-        },
-    )?;
+            "__wbg___wbindgen_is_object" if sig(&ft, "e", "i") => {
+                linker.func_wrap(&modname, &name, h_is_object)?;
+            }
+            "__wbg___wbindgen_is_string" if sig(&ft, "e", "i") => {
+                linker.func_wrap(&modname, &name, h_is_string)?;
+            }
+            "__wbg___wbindgen_is_function" if sig(&ft, "e", "i") => {
+                linker.func_wrap(&modname, &name, h_is_function)?;
+            }
+            "__wbg___wbindgen_is_undefined" if sig(&ft, "e", "i") => {
+                linker.func_wrap(&modname, &name, h_is_undefined)?;
+            }
+            "__wbg___wbindgen_throw" if sig(&ft, "ii", "") => {
+                linker.func_wrap(&modname, &name, h_throw)?;
+            }
+            "__wbindgen_cast" if sig(&ft, "ii", "e") => {
+                linker.func_wrap(&modname, &name, h_cast)?;
+            }
+            b if b.starts_with("__wbg_static_accessor_") && sig(&ft, "", "i") => {
+                linker.func_wrap(&modname, &name, h_global)?;
+            }
+            _ => {} // left for define_unknown_imports_as_traps below
+        }
+    }
 
-    // --- error throwing ---
-    linker.func_wrap(
-        "wbg",
-        "__wbg___wbindgen_throw_b855445ff6a94295",
-        |mut caller: Caller<'_, HostState>, ptr: i32, len: i32| -> anyhow::Result<()> {
-            let s = read_static_string(&mut caller, ptr, len);
-            anyhow::bail!("wasm threw: {s}")
-        },
-    )?;
-
+    // Everything we didn't bind (fetch / Promise / Response / DOM accessors, only used by
+    // the async variants) becomes a trap — if the sync path ever hit one we'd see it.
+    linker.define_unknown_imports_as_traps(module)?;
     Ok(())
 }
 
