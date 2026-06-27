@@ -141,8 +141,8 @@ fn need(it: &mut impl Iterator<Item = String>, flag: &str) -> anyhow::Result<Str
 
 fn print_help() {
     println!(
-        "pdfmaker_wasm — HTML to PDF via built-in Engine\n\n\
-         USAGE:\n  pdfmaker_wasm -i <input.html> [-c <style.css>] [-p <paper>] [-o <output.pdf>]\n\n\
+        "pdfmaker — HTML to PDF via built-in Engine\n\n\
+         USAGE:\n  pdfmaker -i <input.html> [-c <style.css>] [-p <paper>] [-o <output.pdf>]\n\n\
          OPTIONS:\n  \
          -i, --input   Input HTML file (required)\n  \
          -c, --css     Extra CSS file (optional)\n  \
