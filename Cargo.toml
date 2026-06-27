@@ -1,0 +1,19 @@
+[workspace]
+
+[package]
+name = "pdfmaker"
+version = "0.1.0"
+edition = "2021"
+description = "HTML to PDF via the published PDFMaker WASM engine, hosted in wasmtime"
+
+[[bin]]
+name = "pdfmaker_wasm"
+path = "src/main.rs"
+
+[dependencies]
+wasmtime = { version = "27", default-features = false, features = ["runtime", "cranelift", "gc", "gc-drc"] }
+ureq = { version = "2.9", default-features = false, features = ["tls", "gzip"] }
+anyhow = "1.0"
+
+[profile.release]
+opt-level = 3
