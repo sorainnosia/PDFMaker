@@ -73,7 +73,7 @@ fn run() -> anyhow::Result<()> {
         Some(p) => p,
         None => {
             // `--upgrade` with no input file: just refresh the engine and exit.
-            println!("Upgraded Engine: {}", wasm_path.display());
+            println!("Upgraded Engine");
             return Ok(());
         }
     };
