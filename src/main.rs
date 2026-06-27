@@ -9,7 +9,7 @@ use wasmtime::{
 const WASM_URL: &str = "https://pdfmaker.ink/web/pkg/pdfmaker_bg.wasm";
 const WASM_CACHE_NAME: &str = "pdfmaker_bg.wasm";
 
-/// Host-side stand-ins for the JS values the wasm passes around as `externref`.
+/// Host-side stand-ins for the JS values the engine passes around as `externref`.
 /// Only the variants the synchronous `html_to_pdf` path needs are modelled.
 #[derive(Clone)]
 enum HostRef {
@@ -54,21 +54,33 @@ fn main() {
 }
 
 struct Args {
-    input: PathBuf,
+    input: Option<PathBuf>,
     css: Option<PathBuf>,
     output: Option<PathBuf>,
     paper: Option<(f32, f32)>,
+    /// `--upgrade`: delete the cached Engine and re-download the latest from the URL.
+    upgrade: bool,
 }
 
 fn run() -> anyhow::Result<()> {
     let args = parse_args()?;
 
-    // 1. Ensure the wasm is cached locally, downloading it once if needed.
-    let wasm_path = ensure_wasm()?;
+    // 1. Ensure the Engine is cached locally. `--upgrade` deletes any cached copy and
+    //    re-downloads the latest from the URL first.
+    let wasm_path = ensure_wasm(args.upgrade)?;
+
+    let input = match args.input {
+        Some(p) => p,
+        None => {
+            // `--upgrade` with no input file: just refresh the engine and exit.
+            println!("Upgraded Engine: {}", wasm_path.display());
+            return Ok(());
+        }
+    };
 
     // 2. Read inputs.
-    let html = std::fs::read_to_string(&args.input)
-        .map_err(|e| anyhow::anyhow!("reading input {}: {e}", args.input.display()))?;
+    let html = std::fs::read_to_string(&input)
+        .map_err(|e| anyhow::anyhow!("reading input {}: {e}", input.display()))?;
     let css = match &args.css {
         Some(p) => Some(
             std::fs::read_to_string(p)
@@ -100,6 +112,7 @@ fn parse_args() -> anyhow::Result<Args> {
     let mut css = None;
     let mut output = None;
     let mut paper = None;
+    let mut upgrade = false;
     let mut it = std::env::args().skip(1);
     while let Some(a) = it.next() {
         match a.as_str() {
@@ -107,6 +120,7 @@ fn parse_args() -> anyhow::Result<Args> {
             "-c" | "--css" => css = Some(PathBuf::from(need(&mut it, "-c")?)),
             "-o" | "--output" => output = Some(PathBuf::from(need(&mut it, "-o")?)),
             "-p" | "--paper" | "--size" => paper = Some(parse_paper(&need(&mut it, "-p")?)?),
+            "-u" | "--upgrade" => upgrade = true,
             "-h" | "--help" => {
                 print_help();
                 std::process::exit(0);
@@ -114,8 +128,11 @@ fn parse_args() -> anyhow::Result<Args> {
             other => anyhow::bail!("unknown argument: {other} (use --help)"),
         }
     }
-    let input = input.ok_or_else(|| anyhow::anyhow!("missing required -i <input.html> (use --help)"))?;
-    Ok(Args { input, css, output, paper })
+    // An input is required, except when only refreshing the engine with --upgrade.
+    if input.is_none() && !upgrade {
+        anyhow::bail!("missing required -i <input.html> (use --help)");
+    }
+    Ok(Args { input, css, output, paper, upgrade })
 }
 
 fn need(it: &mut impl Iterator<Item = String>, flag: &str) -> anyhow::Result<String> {
@@ -124,14 +141,16 @@ fn need(it: &mut impl Iterator<Item = String>, flag: &str) -> anyhow::Result<Str
 
 fn print_help() {
     println!(
-        "pdfmaker_wasm — HTML to PDF via the published WASM engine\n\n\
+        "pdfmaker_wasm — HTML to PDF via built-in Engine\n\n\
          USAGE:\n  pdfmaker_wasm -i <input.html> [-c <style.css>] [-p <paper>] [-o <output.pdf>]\n\n\
          OPTIONS:\n  \
          -i, --input   Input HTML file (required)\n  \
          -c, --css     Extra CSS file (optional)\n  \
          -p, --paper   Paper size: A3 A4 A5 Letter Legal, or WIDTHxHEIGHT in points\n                \
          (optional; default uses the @page size in the document's CSS)\n  \
-         -o, --output  Output PDF (optional; defaults to Document.pdf, Document-2.pdf, ...)\n"
+         -o, --output  Output PDF (optional; defaults to Document.pdf, Document-2.pdf, ...)\n  \
+         -u, --upgrade Delete the cached Engine and re-download the latest from the URL\n                \
+         (can be used alone to just refresh, or together with a conversion)\n"
     );
 }
 
@@ -182,12 +201,15 @@ fn wasm_cache_path() -> PathBuf {
     std::env::temp_dir().join("pdfmaker").join(WASM_CACHE_NAME)
 }
 
-fn ensure_wasm() -> anyhow::Result<PathBuf> {
+fn ensure_wasm(force: bool) -> anyhow::Result<PathBuf> {
     let path = wasm_cache_path();
-    // If a cached wasm exists, use it as-is — no size or freshness check. A truncated or
-    // corrupt file is dealt with at load time: the loader deletes it so the next run
-    // re-downloads (see `convert`).
-    if path.exists() {
+    if force {
+        // --upgrade: drop any cached copy so the latest is re-downloaded below.
+        let _ = std::fs::remove_file(&path);
+    } else if path.exists() {
+        // If a cached wasm exists, use it as-is — no size or freshness check. A truncated
+        // or corrupt file is dealt with at load time: the loader deletes it so the next run
+        // re-downloads (see `convert`).
         return Ok(path);
     }
 
