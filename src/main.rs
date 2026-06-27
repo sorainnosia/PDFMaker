@@ -193,10 +193,10 @@ fn next_document_path() -> PathBuf {
 }
 
 // ---------------------------------------------------------------------------
-// WASM download / cache
+// Engine download / cache
 // ---------------------------------------------------------------------------
 
-/// Path the wasm is cached at: `<temp>/pdfmaker/pdfmaker_bg.wasm`.
+/// Path the Engine is cached at: `<temp>/pdfmaker/pdfmaker_bg.wasm`.
 fn wasm_cache_path() -> PathBuf {
     std::env::temp_dir().join("pdfmaker").join(WASM_CACHE_NAME)
 }
@@ -207,7 +207,7 @@ fn ensure_wasm(force: bool) -> anyhow::Result<PathBuf> {
         // --upgrade: drop any cached copy so the latest is re-downloaded below.
         let _ = std::fs::remove_file(&path);
     } else if path.exists() {
-        // If a cached wasm exists, use it as-is — no size or freshness check. A truncated
+        // If a cached Engine exists, use it as-is — no size or freshness check. A truncated
         // or corrupt file is dealt with at load time: the loader deletes it so the next run
         // re-downloads (see `convert`).
         return Ok(path);
@@ -217,23 +217,23 @@ fn ensure_wasm(force: bool) -> anyhow::Result<PathBuf> {
         std::fs::create_dir_all(dir)
             .map_err(|e| anyhow::anyhow!("creating cache dir {}: {e}", dir.display()))?;
     }
-    // `identity` so we store the real wasm bytes even if the server can gzip.
+    // `identity` so we store the real Engine bytes even if the server can gzip.
     let resp = ureq::get(WASM_URL)
         .set("Accept-Encoding", "identity")
         .call()
-        .map_err(|e| anyhow::anyhow!("downloading wasm: {e}"))?;
+        .map_err(|e| anyhow::anyhow!("downloading Engine: {e}"))?;
     let mut bytes = Vec::new();
     std::io::copy(&mut resp.into_reader(), &mut bytes)
-        .map_err(|e| anyhow::anyhow!("reading wasm body: {e}"))?;
+        .map_err(|e| anyhow::anyhow!("reading Engine body: {e}"))?;
     if bytes.len() < 1024 {
-        anyhow::bail!("downloaded wasm is suspiciously small ({} bytes)", bytes.len());
+        anyhow::bail!("downloaded Engine is suspiciously small ({} bytes)", bytes.len());
     }
     // Write atomically (tmp + rename) so a half-download never poisons the cache.
     let tmp = path.with_extension("part");
     std::fs::write(&tmp, &bytes)
-        .map_err(|e| anyhow::anyhow!("writing wasm cache: {e}"))?;
+        .map_err(|e| anyhow::anyhow!("writing Engine cache: {e}"))?;
     std::fs::rename(&tmp, &path)
-        .map_err(|e| anyhow::anyhow!("finalizing wasm cache: {e}"))?;
+        .map_err(|e| anyhow::anyhow!("finalizing Engine cache: {e}"))?;
     Ok(path)
 }
 
@@ -275,28 +275,28 @@ fn convert(
     let mut store = Store::new(&engine, HostState { rng: seed });
 
     let mut linker: Linker<HostState> = Linker::new(&engine);
-    // Bind imports by matching the wasm's actual import list (auto-adapting to whatever
+    // Bind imports by matching the Engine's actual import list (auto-adapting to whatever
     // hash suffixes the downloaded wasm-bindgen build used); everything else traps.
     define_imports(&mut linker, &module)?;
 
     let instance = linker.instantiate(&mut store, &module)?;
 
     // wasm-bindgen runs its initialisation (externref table setup, ctor side effects)
-    // from this export rather than a wasm start section.
+    // from this export rather than a Engine start section.
     if let Ok(start) = instance.get_typed_func::<(), ()>(&mut store, "__wbindgen_start") {
         start.call(&mut store, ())?;
     }
 
     let memory = instance
         .get_memory(&mut store, "memory")
-        .ok_or_else(|| anyhow::anyhow!("wasm has no `memory` export"))?;
+        .ok_or_else(|| anyhow::anyhow!("Engine has no `memory` export"))?;
     let malloc = instance.get_typed_func::<(i32, i32), i32>(&mut store, "__wbindgen_malloc")?;
     let free = instance.get_typed_func::<(i32, i32, i32), ()>(&mut store, "__wbindgen_free")?;
     let html_to_pdf = instance
         .get_func(&mut store, "html_to_pdf")
-        .ok_or_else(|| anyhow::anyhow!("wasm has no `html_to_pdf` export"))?;
+        .ok_or_else(|| anyhow::anyhow!("Engine has no `html_to_pdf` export"))?;
 
-    // Marshal the &str arguments into wasm memory the way wasm-bindgen's
+    // Marshal the &str arguments into Engine memory the way wasm-bindgen's
     // `passStringToWasm0` does: malloc(len, 1) then copy the UTF-8 bytes.
     let (html_ptr, html_len) = pass_string(&mut store, &malloc, &memory, html)?;
     let (css_ptr, css_len) = match css {
@@ -340,13 +340,13 @@ fn convert(
     let mut pdf = vec![0u8; len as usize];
     memory
         .read(&store, ptr as usize, &mut pdf)
-        .map_err(|e| anyhow::anyhow!("reading PDF bytes from wasm memory: {e}"))?;
+        .map_err(|e| anyhow::anyhow!("reading PDF bytes from Engine memory: {e}"))?;
     // Free the wasm-side allocation (align 1, element size 1), matching the JS glue.
     free.call(&mut store, (ptr, len, 1))?;
     Ok(pdf)
 }
 
-/// Pull the string out of the error externref the wasm parked at table index `idx`
+/// Pull the string out of the error externref the Engine parked at table index `idx`
 /// (its `Err(JsValue)`), then release the slot.
 fn take_error_message(
     store: &mut Store<HostState>,
@@ -364,7 +364,7 @@ fn take_error_message(
         }
         _ => None,
     };
-    // Return the slot to the wasm allocator (matches the JS `takeFromExternrefTable0`).
+    // Return the slot to the Engine allocator (matches the JS `takeFromExternrefTable0`).
     if let Some(dealloc) = instance.get_typed_func::<i32, ()>(&mut *store, "__externref_table_dealloc").ok() {
         let _ = dealloc.call(&mut *store, idx);
     }
@@ -390,11 +390,11 @@ fn pass_string(
     let ptr = malloc.call(&mut *store, (len, 1))?;
     memory
         .write(&mut *store, ptr as usize, bytes)
-        .map_err(|e| anyhow::anyhow!("writing string to wasm memory: {e}"))?;
+        .map_err(|e| anyhow::anyhow!("writing string to Engine memory: {e}"))?;
     Ok((ptr, len))
 }
 
-/// Read a UTF-8 (lossy) string out of wasm memory.
+/// Read a UTF-8 (lossy) string out of Engine memory.
 fn read_string(caller: &mut Caller<'_, HostState>, ptr: i32, len: i32) -> String {
     let mem = match caller.get_export("memory").and_then(Extern::into_memory) {
         Some(m) => m,
@@ -423,7 +423,7 @@ fn strip_bindgen_hash(name: &str) -> &str {
     name
 }
 
-// --- import handlers (shared by whatever hashed names the wasm actually uses) ---
+// --- import handlers (shared by whatever hashed names the Engine actually uses) ---
 
 /// `(ptr, len) -> externref` cast intrinsic. See `HostRef::Mem`.
 fn h_cast(mut caller: Caller<'_, HostState>, ptr: i32, len: i32) -> anyhow::Result<Option<Rooted<ExternRef>>> {
@@ -495,7 +495,7 @@ fn h_is_undefined(caller: Caller<'_, HostState>, arg: Option<Rooted<ExternRef>>)
 
 fn h_throw(mut caller: Caller<'_, HostState>, ptr: i32, len: i32) -> anyhow::Result<()> {
     let s = read_string(&mut caller, ptr, len);
-    anyhow::bail!("wasm threw: {s}")
+    anyhow::bail!("Engine threw: {s}")
 }
 
 /// `__wbindgen_init_externref_table` — grow the externref table by 4 and seed the canonical
