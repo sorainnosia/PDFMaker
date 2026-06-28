@@ -1,87 +1,115 @@
+<div align="center">
+
 # PDFMaker
 
-A fast, lightweight HTML to PDF converter built with Rust. Convert HTML documents with CSS styling into high-quality PDF files.
+### HTML &amp; CSS → PDF, powered by its own native rendering engine
 
-<img width="680" alt="image" src="https://github.com/user-attachments/assets/4714ba84-454a-47b0-a3cb-8292bd53bac7" />
+**No headless browser. No Chromium. No WebView.**
+PDFMaker parses HTML, computes the CSS cascade, lays out the page, and draws every glyph,
+gradient, and shape with its own engine written in **Rust** — so it's small, fast, fully
+self‑contained, and produces identical output everywhere it runs.
 
-## PDF
-<img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/88967375-6e58-4bf1-8da9-687a2e63b4c1" />
+[**🌐 Website**](https://pdfmaker.ink) &nbsp;·&nbsp;
+[**📖 Documentation**](https://pdfmaker.ink/documentation.html) &nbsp;·&nbsp;
+[**🚀 Try it in your browser**](https://pdfmaker.ink/web/index.html) &nbsp;·&nbsp;
+[**⬇ Download**](https://pdfmaker.ink/download.html)
 
-<img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/8e689461-486d-44ff-ab8a-5d4bb142a3eb" />
+</div>
 
-<img width="680" height="800" alt="image" src="https://github.com/user-attachments/assets/192eda84-a985-432c-9337-01e325c641d0" />
+---
 
-## Features
+## ✨ Why PDFMaker
 
-- **HTML to PDF Conversion** - Convert HTML documents with common CSS support
-- **Multiple Paper Sizes** - Support for A4, A3, Letter, and Legal paper sizes
-- **CSS Styling** - Support for modern CSS including Flexbox, Grid, and more
-- **Page Breaks** - Control pagination with `break-before: page` and `break-after: page`
-- **Custom Fonts** - Support for various font families and styles
-- **Images & SVG** - Embed images and SVG graphics in your PDFs
-- **Tables** - Full table support with borders, backgrounds, and cell styling 
+Most HTML‑to‑PDF tools shell out to a headless browser (Chromium, Puppeteer, wkhtmltopdf).
+PDFMaker is different — it's a **real, standalone rendering engine**:
 
-## Installation
+- 🦀 **Own engine, pure Rust** — no browser, no Node.js, no native dependencies.
+- ⚡ **Fast & lightweight** — a single binary; deterministic, pixel‑consistent output.
+- 🌍 **Runs everywhere** — Windows desktop, Android, and right in the browser via WebAssembly.
+- 🔒 **100% offline** — your documents never leave your machine.
 
-### Android App
+## 🧩 Features
 
-Download PDFMaker from the Google Play Store:
+| Category | What's supported |
+|---|---|
+| **Layout** | Block / inline / inline‑block, **Flexbox**, **CSS Grid**, **multi‑column**, `position` (relative/absolute/fixed), `float`, `overflow` clipping |
+| **Typography** | Web‑safe + **`@font-face` web fonts** (local & remote), `font-weight/style/stretch/variant`, `letter/word‑spacing`, `text-align: justify`, `text-shadow`, `text-decoration`, drop caps (`::first-letter`) |
+| **Color & Backgrounds** | Named/hex/`rgb()`/`rgba()`, **linear / radial / conic gradients**, multi‑layer backgrounds, `background-clip: text` (gradient text) |
+| **Borders & Effects** | `border-radius`, per‑side borders, **`box-shadow`**, `opacity`, **`mix-blend-mode`**, **`clip-path`**, **`filter`** (blur, grayscale, sepia…), **`backdrop-filter` (real frosted glass)** |
+| **Transforms** | `translate`, `rotate`, `scale`, `skew`, `matrix`, `transform-origin` |
+| **Tables** | `border-collapse`, `border-spacing`, `colspan`/`rowspan`, striped rows, rounded clipping |
+| **Lists & Content** | Many `list-style-type`s, **CSS counters** & generated content (`::before`) |
+| **Graphics** | Inline **SVG** (paths, gradients, shapes), raster images (PNG/JPEG/GIF/BMP/WebP), full‑color **emoji** |
+| **Internationalization** | **CJK** (中文 · 日本語 · 한국어), **Arabic / Hebrew (RTL)** with shaping & bidi, Cyrillic, vertical `writing-mode` |
+| **Paged media** | `@page` sizes (A4, Letter, custom…), margins, automatic & forced page breaks, `@media print` |
+| **PDF features** | Embedded subsetted fonts, clickable link annotations, password **encryption**, and tools to **merge / extract / delete / compress** PDFs |
 
-[**Download on Google Play**](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
+➡️ See the full, illustrated property catalogue (each feature rendered straight to PDF) at
+**[pdfmaker.ink/documentation.html](https://pdfmaker.ink/documentation.html)**.
 
-### Paper Sizes
+## 🖼 Showcase
 
-| Size | Dimensions | Points |
-|------|------------|--------|
-| A4 (default) | 210mm × 297mm | 595 × 842 |
-| A3 | 297mm × 420mm | 842 × 1191 |
-| Letter | 8.5in × 11in | 612 × 792 |
-| Legal | 8.5in × 14in | 612 × 1008 |
+A few documents rendered entirely by PDFMaker — straight from HTML/CSS, no browser involved.
+Sources live in [`tauri_web/ui/content/`](tauri_web/ui/content/).
 
-## Supported CSS Features
+<table>
+  <tr>
+    <td width="50%" align="center">
+    <img width="957" height="1349" alt="Example16" src="https://github.com/user-attachments/assets/0055fdc5-6c5e-4fad-82e2-68ee95c528e7" />
+      <br><b>Analytics Dashboard</b><br><sub>Dark mode · gradients · KPI cards</sub>
+    </td>
+    <td width="50%" align="center">
+      <img width="959" height="1351" alt="Example9" src="https://github.com/user-attachments/assets/a764ea15-fc8d-47ef-9a4b-f2e5e3795e73" />
+      <br><b>Professional Invoice</b><br><sub>Clean tables · business layout</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img width="958" height="866" alt="Example25" src="https://github.com/user-attachments/assets/02916462-edf5-4e53-9f9f-ea951b43e8df" />
+      <br><b>Creative Vision</b><br><sub>Bold type · vivid gradients</sub>
+    </td>
+    <td width="50%" align="center">
+      <img width="1110" height="944" alt="Example28" src="https://github.com/user-attachments/assets/d61551f2-72de-4ef6-b631-6f509cc92a8d" />
+      <br><b>Annual Performance Report</b><br><sub>Charts · tables · corporate style</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img width="954" height="1350" alt="Example18" src="https://github.com/user-attachments/assets/fb5c87b2-dd23-409a-966c-23362c35dd2e" />
+      <br><b>Arabic (RTL)</b><br><sub>Right‑to‑left shaping &amp; bidi</sub>
+    </td>
+    <td width="50%" align="center">
+      <img width="1112" height="1367" alt="Example17" src="https://github.com/user-attachments/assets/09ada836-2669-4dc3-a609-4a0e99c0a00c" />
+      <br><b>Chinese (CJK)</b><br><sub>Embedded CJK fonts</sub>
+    </td>
+  </tr>
+</table>
 
-- **Layout**: `display` (block, inline, inline-block, flex, grid, table)
-- **Box Model**: `margin`, `padding`, `border`, `width`, `height`
-- **Flexbox**: `flex-direction`, `justify-content`, `align-items`, `flex-wrap`, `gap`
-- **Grid**: `grid-template-columns`, `grid-template-rows`, `grid-gap`
-- **Typography**: `font-family`, `font-size`, `font-weight`, `font-style`, `line-height`, `text-align`, `text-decoration`
-- **Colors**: `color`, `background-color`, `opacity`, RGBA support
-- **Positioning**: `position` (static, relative, absolute, fixed), `top`, `right`, `bottom`, `left`
-- **Page Breaks**: `break-before`, `break-after`, `page-break-before`, `page-break-after`
-- **And more**: `transform`, `border-radius`, `box-shadow`, `list-style-type`, etc.
+## 🚀 Quick start
 
-## Example HTML
+**Try it now** — no install — in the browser app: **[pdfmaker.ink/web](https://pdfmaker.ink/web/index.html)**.
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        h1 {
-            color: #333;
-            border-bottom: 2px solid #007bff;
-        }
-        .page-break {
-            break-before: page;
-        }
-    </style>
-</head>
-<body>
-    <h1>My Document</h1>
-    <p>This is the first page content.</p>
+Or use the desktop CLI:
 
-    <div class="page-break">
-        <h1>Second Page</h1>
-        <p>This content appears on a new page.</p>
-    </div>
-</body>
-</html>
+```bash
+pdfmaker -i document.html -c styles.css -o output.pdf
+# choose a paper size (A4, Letter, Legal, or WIDTHxHEIGHT in points)
+pdfmaker -i invoice.html -p A4 -o invoice.pdf
 ```
 
-## Links
+## ⬇ Get PDFMaker
 
-- [Google Play Store](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy)
+| Platform | Download |
+|---|---|
+| 🪟 **Windows** | [pdfmaker.exe](https://github.com/sorainnosia/PDFMaker/releases/download/1.0/pdfmaker.exe) |
+| 🤖 **Android** | [Google Play](https://play.google.com/store/apps/details?id=com.pdfmaker.johnkenedy) |
+| 🌐 **Web (WASM)** | [pdfmaker.ink/web](https://pdfmaker.ink/web/index.html) |
+
+## 🔗 Links
+
+- **Website:** https://pdfmaker.ink
+- **Documentation:** https://pdfmaker.ink/documentation.html
+- **Features:** https://pdfmaker.ink/features.html
+- **Examples:** https://pdfmaker.ink/examples.html
+
+<div align="center"><sub>Built with 🦀 Rust — HTML to beautiful PDF, anywhere.</sub></div>
