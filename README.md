@@ -50,7 +50,7 @@ PDFMaker is different — it's a **real, standalone rendering engine**:
 ## 🖼 Showcase
 
 A few documents rendered entirely by PDFMaker — straight from HTML/CSS, no browser involved.
-Sources live in [`tauri_web/ui/content/`](tauri_web/ui/content/).
+Sources live in Examples.
 
 <table>
   <tr>
